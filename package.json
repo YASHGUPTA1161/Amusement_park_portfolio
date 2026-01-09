@@ -6,12 +6,28 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "dependencies": {
+    "@hookform/resolvers": "^3.9.0",
+    "@iconscout/unicons": "^4.2.0",
+    "autoprefixer": "^10.4.22",
+    "axios": "^1.13.2",
+    "emailjs-com": "^3.2.0",
+    "framer-motion": "^12.23.24",
+    "howler": "^2.2.4",
+    "lottie-react": "^2.4.0",
     "next": "16.0.3",
+    "postcss": "^8.5.6",
     "react": "19.2.0",
-    "react-dom": "19.2.0"
+    "react-dom": "19.2.0",
+    "react-draggable": "^4.5.0",
+    "react-hook-form": "^7.53.0",
+    "three": "^0.182.0",
+    "zod": "^3.23.8",
+    "zustand": "^5.0.1"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
@@ -20,7 +36,10 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.0.3",
-    "tailwindcss": "^4",
-    "typescript": "^5"
+    "eslint-config-prettier": "^9.1.0",
+    "prettier": "^3.3.3",
+    "tailwindcss": "^4.1.17",
+    "typescript": "^5",
+    "vite": "^7.3.0"
   }
 }
