@@ -1,5 +1,5 @@
 "use client";
-import Experience from "@/components/Experience";
+import Experience from "@/components/Experience/Experience";
 
 export default function Home() {
   return (
