@@ -12,6 +12,7 @@ import { createCamera } from "./camera";
 import { loadAmusementPark } from "./loadAmusementPark";
 import { setupLights } from "./lights";
 import { createCharacterController } from "./characterController";
+import { updateHover } from "./hoverController";
 
 export default function AmusementPark() {
   useEffect(() => {
@@ -320,20 +321,14 @@ export default function AmusementPark() {
         }
       }
 
-      raycaster.setFromCamera(mouse, camera);
-      const hits = raycaster.intersectObjects(interactables, false);
-
-      if (hits.length > 0) {
-        const hitMesh = hits[0].object;
-        const realObject = findRealObject(hitMesh);
-
-        if (realObject && hovered !== realObject) {
-          hovered = realObject;
-          console.log("Hovered:", realObject.name);
-        }
-      } else {
-        hovered = null;
-      }
+      hovered = updateHover({
+        raycaster,
+        mouse,
+        camera,
+        interactables,
+        findRealObject,
+        prevHovered: hovered,
+      });
 
       renderer.render(scene, camera);
     }
