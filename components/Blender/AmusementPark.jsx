@@ -7,6 +7,7 @@ import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import gsap from "gsap";
 import HTML from "./HTML.jsx";
 import { createScene } from "./scene";
+import { createRenderer } from "./renderer";
 
 export default function AmusementPark() {
   useEffect(() => {
@@ -161,18 +162,7 @@ export default function AmusementPark() {
     // ==========================
     // RENDERER
     // ==========================
-    const renderer = new THREE.WebGLRenderer({
-      canvas: canvas,
-      antialias: true,
-    });
-    renderer.setSize(sizes.width, sizes.height);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.shadowMap.enabled = true;
-    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-
-    renderer.outputColorSpace = THREE.SRGBColorSpace;
-    renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.2;
+    const renderer = createRenderer(canvas, sizes);
 
     // ==========================
     // LOADER - GLTF
