@@ -16,13 +16,10 @@ import { updateHover } from "./hoverController";
 import { createModalController } from "./modalController";
 import { modalContent } from "./data/modalContent";
 import { updateCameraFollow } from "./cameraFollow";
+import { createGroundController } from "./groundController";
 
 export default function AmusementPark() {
   useEffect(() => {
-    // ==========================
-    // CONSTANTS & GLOBALS
-    // Grouped constants, vectors, and state objects
-    // ==========================
     const cameraOffset = new THREE.Vector3(8, 14, -3);
 
     const raycaster = new THREE.Raycaster();
@@ -37,9 +34,7 @@ export default function AmusementPark() {
       spawnPosition: new THREE.Vector3(),
     };
     let targetRotation = Math.PI / 2;
-    let baseMesh = null; // Store reference to ground
-    const FALL_CHECK_INTERVAL = 100; // Check every 100ms
-    let lastGroundCheckTime = 0;
+    const baseMesh = { current: null };
 
     const modalController = createModalController(modalContent);
     modalController.bind();
@@ -55,9 +50,6 @@ export default function AmusementPark() {
     }
     window.addEventListener("pointermove", onPointerMove);
 
-    // ==========================
-    // SCENE SETUP
-    // ==========================
     const scene = createScene();
     const canvas = document.getElementById("experience-canvas");
     if (!canvas) return;
@@ -67,42 +59,20 @@ export default function AmusementPark() {
       height: window.innerHeight,
     };
 
-    // ==========================
-    // RENDERER
-    // ==========================
     const renderer = createRenderer(canvas, sizes);
 
-    // ==========================
-    // LOADER - GLTF
-    // Load and register meshes, character, and base
-    // ==========================
     loadAmusementPark({
       scene,
       interactables,
       character,
       onBaseFound: (mesh) => {
-        baseMesh = mesh;
+        baseMesh.current = mesh;
       },
     });
-
-    // ==========================
-    // LIGHTS (UNCHANGED)
-    setupLights(scene);
-    // Grouped light setup
-    // ==========================
-
-    // ==========================
-    // CAMERA & CONTROLS
-    // Using an orthographic camera
-    // ==========================
 
     const { camera, controls } = createCamera(sizes, canvas);
     scene.add(camera);
 
-    // ==========================
-    // RESIZE HANDLING
-    // Keep responsive projection matrix update together
-    // ==========================
     function onResize() {
       sizes.width = window.innerWidth;
       sizes.height = window.innerHeight;
@@ -138,6 +108,13 @@ export default function AmusementPark() {
         ease: "back.out(2)",
       });
     }
+    const groundController = createGroundController({
+      character,
+      raycaster,
+      baseMesh,
+      respawnCharacter,
+    });
+
     const { handleKeyDown } = createCharacterController(
       character,
       respawnCharacter
@@ -160,33 +137,9 @@ export default function AmusementPark() {
       return null;
     }
 
-    // ==========================
-    // RENDER / ANIMATION LOGIC
-    // moveCharacter, isOnGround, animate grouped together
-    // ==========================
-    // Check if character is standing on base
-    function isOnGround() {
-      if (!character.instance || !baseMesh) return true; // Assume safe if not loaded
-
-      // Cast ray downward from character
-      const rayOrigin = character.instance.position.clone();
-      rayOrigin.y += 1; // Start from character center
-
-      const rayDirection = new THREE.Vector3(0, -1, 0);
-      raycaster.set(rayOrigin, rayDirection);
-
-      const hits = raycaster.intersectObject(baseMesh, true);
-
-      // If hit base within 2 units, character is on ground
-      if (hits.length > 0 && hits[0].distance < 3) {
-        return true;
-      }
-
-      return false;
-    }
-
     function animate() {
       controls.update(); // Keep this for zoom
+      groundController.update();
 
       // ✅ CAMERA FOLLOWS CHARACTER
       updateCameraFollow({
@@ -196,25 +149,6 @@ export default function AmusementPark() {
       });
 
       // ✅ CHECK IF ON GROUND (throttled check)
-      const currentTime = Date.now();
-      if (currentTime - lastGroundCheckTime > FALL_CHECK_INTERVAL) {
-        lastGroundCheckTime = currentTime;
-
-        if (character.instance && !character.isMoving) {
-          if (!isOnGround()) {
-            console.log("⚠️ Character not on ground! Falling...");
-            gsap.to(character.instance.position, {
-              y: -20,
-              duration: 1,
-              ease: "power2.in",
-              onComplete: () => {
-                respawnCharacter();
-              },
-            });
-            character.isMoving = true;
-          }
-        }
-      }
 
       hovered = updateHover({
         raycaster,
