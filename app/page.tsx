@@ -1,10 +1,10 @@
 "use client";
-import Experience from "@/components/Experience/Experience";
+import AmusementPark from "@/components/Blender/AmusementPark";
 
 export default function Home() {
   return (
     <>
-      <Experience />
+      <AmusementPark />
     </>
   );
 }
