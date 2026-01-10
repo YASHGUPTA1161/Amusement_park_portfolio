@@ -6,6 +6,7 @@ import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import gsap from "gsap";
 import HTML from "./HTML.jsx";
+import { createScene } from "./scene";
 
 export default function AmusementPark() {
   useEffect(() => {
@@ -148,7 +149,7 @@ export default function AmusementPark() {
     // ==========================
     // SCENE SETUP
     // ==========================
-    const scene = new THREE.Scene();
+    const scene = createScene();
     const canvas = document.getElementById("experience-canvas");
     if (!canvas) return;
 
@@ -209,11 +210,6 @@ export default function AmusementPark() {
     // LIGHTS (UNCHANGED)
     // Grouped light setup
     // ==========================
-    scene.add(new THREE.AmbientLight(0xffffff, 1));
-
-    const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444444, 3);
-    hemiLight.position.set(0, 50, 0);
-    scene.add(hemiLight);
 
     const charLight = new THREE.SpotLight(0xffffff, 2.5);
     charLight.position.set(23.79, 8.13, 1.06);
