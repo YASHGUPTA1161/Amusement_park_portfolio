@@ -8,6 +8,7 @@ import gsap from "gsap";
 import HTML from "./HTML.jsx";
 import { createScene } from "./scene";
 import { createRenderer } from "./renderer";
+import { createCamera } from "./camera";
 
 export default function AmusementPark() {
   useEffect(() => {
@@ -235,25 +236,9 @@ export default function AmusementPark() {
     // CAMERA & CONTROLS
     // Using an orthographic camera
     // ==========================
-    const aspect = sizes.width / sizes.height;
-    const camera = new THREE.OrthographicCamera(
-      -aspect * 10,
-      aspect * 10,
-      10,
-      -10,
-      1,
-      1000
-    );
 
+    const { camera, controls } = createCamera(sizes, canvas);
     scene.add(camera);
-
-    const controls = new OrbitControls(camera, canvas);
-    controls.enableRotate = true; // ✅ Disable rotation
-    controls.enablePan = true; // ✅ Disable panning
-    controls.enableZoom = true;
-    camera.position.set(8, 14, -3);
-    controls.target.set(0, 0, 0);
-    controls.update();
 
     // ==========================
     // RESIZE HANDLING
