@@ -15,6 +15,7 @@ import { createCharacterController } from "./characterController";
 import { updateHover } from "./hoverController";
 import { createModalController } from "./modalController";
 import { modalContent } from "./data/modalContent";
+import { updateCameraFollow } from "./cameraFollow";
 
 export default function AmusementPark() {
   useEffect(() => {
@@ -188,19 +189,11 @@ export default function AmusementPark() {
       controls.update(); // Keep this for zoom
 
       // ✅ CAMERA FOLLOWS CHARACTER
-      if (character.instance) {
-        const targetCameraPosition = new THREE.Vector3(
-          character.instance.position.x + cameraOffset.x,
-          cameraOffset.y,
-          character.instance.position.z + cameraOffset.z
-        );
-        camera.position.copy(targetCameraPosition);
-        camera.lookAt(
-          character.instance.position.x,
-          0, // Look at ground level
-          character.instance.position.z
-        );
-      }
+      updateCameraFollow({
+        camera,
+        character,
+        offset: cameraOffset,
+      });
 
       // ✅ CHECK IF ON GROUND (throttled check)
       const currentTime = Date.now();
