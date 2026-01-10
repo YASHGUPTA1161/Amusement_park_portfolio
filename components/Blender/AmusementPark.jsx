@@ -11,6 +11,7 @@ import { createRenderer } from "./renderer";
 import { createCamera } from "./camera";
 import { loadAmusementPark } from "./loadAmusementPark";
 import { setupLights } from "./lights";
+import { createCharacterController } from "./characterController";
 
 export default function AmusementPark() {
   useEffect(() => {
@@ -214,57 +215,6 @@ export default function AmusementPark() {
     }
     window.addEventListener("resize", onResize);
 
-    window.addEventListener("keydown", onKeyDown);
-
-    const JUMP_DURATION = 0.8;
-    const MOVE_DISTANCE = 5;
-
-    function onKeyDown(e) {
-      if (!character.instance) return;
-      if (character.isMoving) return;
-
-      const key = e.key.toLowerCase();
-      const currentPos = character.instance.position.clone();
-      let targetPos = currentPos.clone();
-      let targetRotation = character.instance.rotation.y;
-
-      switch (key) {
-        case "a":
-        case "arrowup":
-          targetPos.z += MOVE_DISTANCE;
-          targetRotation = 0;
-          break;
-
-        case "d":
-        case "arrowdown":
-          targetPos.z -= MOVE_DISTANCE;
-          targetRotation = Math.PI;
-          break;
-
-        case "s":
-        case "arrowleft":
-          targetPos.x += MOVE_DISTANCE;
-          targetRotation = Math.PI / 2;
-          break;
-
-        case "w":
-        case "arrowright":
-          targetPos.x -= MOVE_DISTANCE;
-          targetRotation = -Math.PI / 2;
-          break;
-
-        case "r":
-          respawnCharacter();
-          return;
-
-        default:
-          return;
-      }
-
-      // Animate movement with GSAP
-      moveCharacter(targetPos, targetRotation);
-    }
-
     function respawnCharacter() {
       if (!character.instance) return;
 
@@ -284,6 +234,12 @@ export default function AmusementPark() {
         ease: "back.out(2)",
       });
     }
+    const { handleKeyDown } = createCharacterController(
+      character,
+      respawnCharacter
+    );
+
+    window.addEventListener("keydown", handleKeyDown);
 
     // ==========================
     // HELPERS
@@ -304,89 +260,6 @@ export default function AmusementPark() {
     // RENDER / ANIMATION LOGIC
     // moveCharacter, isOnGround, animate grouped together
     // ==========================
-    function moveCharacter(targetPos, targetRotation) {
-      character.isMoving = true;
-
-      const tl = gsap.timeline({
-        onComplete: () => {
-          character.isMoving = false;
-
-          // Auto-respawn if fallen off
-          if (character.instance.position.y < -10) {
-            respawnCharacter();
-          }
-        },
-      });
-
-      // Move horizontally
-      tl.to(
-        character.instance.position,
-        {
-          x: targetPos.x,
-          z: targetPos.z,
-          duration: JUMP_DURATION,
-          ease: "power2.inOut",
-        },
-        0
-      );
-
-      // Rotate
-      tl.to(
-        character.instance.rotation,
-        {
-          y: targetRotation,
-          duration: JUMP_DURATION * 0.5,
-          ease: "power2.inOut",
-        },
-        0
-      );
-
-      // Jump arc (up and down)
-      tl.to(
-        character.instance.position,
-        {
-          y: "+=3",
-          duration: JUMP_DURATION / 2,
-          ease: "power1.out",
-        },
-        0
-      );
-
-      tl.to(
-        character.instance.position,
-        {
-          y: targetPos.y,
-          duration: JUMP_DURATION / 2,
-          ease: "power1.in",
-        },
-        JUMP_DURATION / 2
-      );
-
-      // Squash and stretch
-      tl.to(
-        character.instance.scale,
-        {
-          x: 0.9,
-          y: 1.2,
-          z: 0.9,
-          duration: JUMP_DURATION * 0.2,
-          ease: "power2.out",
-        },
-        0
-      );
-
-      tl.to(
-        character.instance.scale,
-        {
-          x: 1,
-          y: 1,
-          z: 1,
-          duration: JUMP_DURATION * 0.3,
-          ease: "elastic.out(1, 0.5)",
-        },
-        JUMP_DURATION * 0.7
-      );
-    }
     // Check if character is standing on base
     function isOnGround() {
       if (!character.instance || !baseMesh) return true; // Assume safe if not loaded
@@ -480,7 +353,7 @@ export default function AmusementPark() {
     // ✅ CLEANUP FUNCTION
     return () => {
       window.removeEventListener("resize", onResize);
-      window.removeEventListener("keydown", onKeyDown);
+      window.removeEventListener("keydown", handleKeyDown);
       window.removeEventListener("pointermove", onPointerMove);
       window.removeEventListener("click", onClick);
       modalExitButton.removeEventListener("click", (e) => {
