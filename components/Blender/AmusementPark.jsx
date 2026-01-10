@@ -13,6 +13,7 @@ import { loadAmusementPark } from "./loadAmusementPark";
 import { setupLights } from "./lights";
 import { createCharacterController } from "./characterController";
 import { updateHover } from "./hoverController";
+import { createModalController } from "./modalController";
 
 export default function AmusementPark() {
   useEffect(() => {
@@ -41,18 +42,6 @@ export default function AmusementPark() {
     // ==========================
     // MODAL ELEMENTS (HTML)
     // ==========================
-    const modal = document.querySelector(".modal");
-    const modalbgOverlay = document.querySelector(".modal-bg-overlay");
-    const modalTitle = document.querySelector(".modal-title");
-    const modalProjectDescription = document.querySelector(
-      ".modal-project-description"
-    );
-    const modalVisitProjectButton = document.querySelector(
-      ".modal-project-visit-button"
-    );
-    const modalExitButton = document.querySelector(".modal-exit-button");
-
-    let isModalOpen = false;
 
     // ==========================
     // MODAL CONTENT (MATCH BLENDER NAMES)
@@ -108,40 +97,18 @@ export default function AmusementPark() {
         content: "More snacks. Same regret.",
       },
     };
+    const modalController = createModalController(modalContent);
+    modalController.bind();
+    const handleGlobalClick = () => {
+      modalController.handleClick(hovered);
+    };
+
+    window.addEventListener("click", handleGlobalClick);
 
     // ==========================
     // MODAL HELPERS
     // Keep modal logic together for readability
     // ==========================
-    function showModal(id) {
-      const content = modalContent[id];
-      if (!content) return;
-
-      modalTitle.textContent = content.title;
-      modalProjectDescription.textContent = content.content;
-
-      if (content.link) {
-        modalVisitProjectButton.href = content.link;
-        modalVisitProjectButton.classList.remove("hidden");
-      } else {
-        modalVisitProjectButton.classList.add("hidden");
-      }
-
-      modal.classList.remove("hidden");
-      modalbgOverlay.classList.remove("hidden");
-      isModalOpen = true;
-    }
-
-    function hideModal() {
-      modal.classList.add("hidden");
-      modalbgOverlay.classList.add("hidden");
-      isModalOpen = false;
-    }
-    function onClick(event) {
-      if (isModalOpen) return; // ❗ block when modal open
-      if (!hovered) return; // ❗ nothing hovered
-      showModal(hovered.name); // ✅ open correct modal
-    }
 
     // ==========================
     // POINTER
@@ -332,16 +299,6 @@ export default function AmusementPark() {
 
       renderer.render(scene, camera);
     }
-    modalExitButton.addEventListener("click", (e) => {
-      e.stopPropagation();
-      hideModal();
-    });
-
-    modalbgOverlay.addEventListener("click", (e) => {
-      e.stopPropagation();
-      hideModal();
-    });
-    window.addEventListener("click", onClick);
 
     renderer.setAnimationLoop(animate);
 
@@ -350,16 +307,9 @@ export default function AmusementPark() {
       window.removeEventListener("resize", onResize);
       window.removeEventListener("keydown", handleKeyDown);
       window.removeEventListener("pointermove", onPointerMove);
-      window.removeEventListener("click", onClick);
-      modalExitButton.removeEventListener("click", (e) => {
-        e.stopPropagation();
-        hideModal();
-      });
-      modalbgOverlay.removeEventListener("click", (e) => {
-        e.stopPropagation();
-        hideModal();
-      });
 
+      window.removeEventListener("click", handleGlobalClick);
+      modalController.cleanup();
       // Cleanup WebGL resources
       renderer.dispose();
       renderer.setAnimationLoop(null);
