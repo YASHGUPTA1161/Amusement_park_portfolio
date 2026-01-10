@@ -9,6 +9,7 @@ import HTML from "./HTML.jsx";
 import { createScene } from "./scene";
 import { createRenderer } from "./renderer";
 import { createCamera } from "./camera";
+import { loadAmusementPark } from "./loadAmusementPark";
 
 export default function AmusementPark() {
   useEffect(() => {
@@ -169,32 +170,13 @@ export default function AmusementPark() {
     // LOADER - GLTF
     // Load and register meshes, character, and base
     // ==========================
-    const loader = new GLTFLoader();
-    loader.load("./amusement_park.glb", (glb) => {
-      console.log("GLB loaded successfully");
-
-      glb.scene.traverse((child) => {
-        // ✅ THIRD: Handle all other meshes
-        if (child.name.toLowerCase() === "base") {
-          baseMesh = child;
-          console.log("✅ BASE FOUND!", child);
-        }
-        if (child.isMesh) {
-          child.castShadow = true;
-          child.receiveShadow = true;
-          child.material.metalness = 0.5;
-          interactables.push(child);
-        }
-        // Handle character
-        if (child.name.toLowerCase() === "character") {
-          console.log("✅ CHARACTER FOUND!", child);
-          character.instance = child;
-          character.spawnPosition.copy(child.position);
-          return;
-        }
-      });
-
-      scene.add(glb.scene);
+    loadAmusementPark({
+      scene,
+      interactables,
+      character,
+      onBaseFound: (mesh) => {
+        baseMesh = mesh;
+      },
     });
 
     // ==========================
