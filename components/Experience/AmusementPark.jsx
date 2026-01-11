@@ -2,15 +2,12 @@
 
 import { useEffect } from "react";
 import * as THREE from "three";
-import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
-import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import gsap from "gsap";
 import HTML from "./HTML.jsx";
-import { createScene } from "./scene.jsx";
+import { createScene } from "./scene.js";
 import { createRenderer } from "./renderer.js";
 import { createCamera } from "./camera.js";
 import { loadAmusementPark } from "./loadAmusementPark.js";
-import { setupLights } from "./lights.js";
 import { createCharacterController } from "./characterController.js";
 import { updateHover } from "./hoverController.js";
 import { createModalController } from "./modalController.js";
@@ -33,7 +30,6 @@ export default function AmusementPark() {
       isMoving: false,
       spawnPosition: new THREE.Vector3(),
     };
-    let targetRotation = Math.PI / 2;
     const baseMesh = { current: null };
 
     const modalController = createModalController(modalContent);
@@ -51,6 +47,8 @@ export default function AmusementPark() {
     window.addEventListener("pointermove", onPointerMove);
 
     const scene = createScene();
+    setupLights(scene);
+
     const canvas = document.getElementById("experience-canvas");
     if (!canvas) return;
 
