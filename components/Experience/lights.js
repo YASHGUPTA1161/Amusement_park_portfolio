@@ -1,13 +1,18 @@
 import * as THREE from "three";
 
 export function setupLights(scene) {
+  const lights = [];
+
   // Ambient
-  scene.add(new THREE.AmbientLight(0xffffff, 1));
+  const ambient = new THREE.AmbientLight(0xffffff, 1);
+  scene.add(ambient);
+  lights.push(ambient);
 
   // Hemisphere
   const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444444, 3);
   hemiLight.position.set(0, 50, 0);
   scene.add(hemiLight);
+  lights.push(hemiLight);
 
   // Character spotlight
   const charLight = new THREE.SpotLight(0xffffff, 2.5);
@@ -17,10 +22,12 @@ export function setupLights(scene) {
   charLight.decay = 2;
   charLight.distance = 30;
   charLight.castShadow = true;
-  charLight.target.position.set(0, 0, 0);
 
+  charLight.target.position.set(0, 0, 0);
   scene.add(charLight.target);
   scene.add(charLight);
+
+  lights.push(charLight, charLight.target);
 
   // Sun
   const sun = new THREE.DirectionalLight(0xffffff, 2);
@@ -38,11 +45,21 @@ export function setupLights(scene) {
   sun.shadow.mapSize.set(4096, 4096);
 
   sun.target.position.set(50, 0, 0);
-
   scene.add(sun.target);
   scene.add(sun);
 
-  // Debug helper (optional later)
+  lights.push(sun, sun.target);
+
+  // Debug helper (dev only, still must be cleaned)
   const shadowHelper = new THREE.CameraHelper(sun.shadow.camera);
   scene.add(shadowHelper);
+  lights.push(shadowHelper);
+
+  // ✅ cleanup
+  return () => {
+    for (const obj of lights) {
+      scene.remove(obj);
+      if (obj.dispose) obj.dispose();
+    }
+  };
 }

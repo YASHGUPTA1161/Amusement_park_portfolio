@@ -1,16 +1,11 @@
 // components/Blender/useAmusementPark.js
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import * as THREE from "three";
 import gsap from "gsap";
 
-import { createScene } from "./scene.js";
-import { createRenderer } from "./renderer.js";
-import { createCamera } from "./camera.js";
 import { loadAmusementPark } from "./loadAmusementPark.js";
-import { setupLights } from "./lights.js";
-
 import { createCharacterController } from "./characterController.js";
 import { createGroundController } from "./groundController.js";
 import { updateHover } from "./hoverController.js";
@@ -18,73 +13,76 @@ import { updateCameraFollow } from "./cameraFollow.js";
 import { createModalController } from "./modalController.js";
 import { modalContent } from "./data/modalContent.js";
 import { createInputController } from "./inputController.js";
+import { createStateController } from "./stateController.js";
+import { useThreeSceneLifecycle } from "./useThreeSceneLifecycle";
 
 export function useAmusementPark() {
+  // ===== Persistent refs (shared with render loop) =====
+  const stateRef = useRef(createStateController());
+  const baseMeshRef = useRef(null);
+  const interactablesRef = useRef([]);
+  const characterRef = useRef({
+    instance: null,
+    isMoving: false,
+    spawnPosition: new THREE.Vector3(),
+  });
+
+  const raycaster = useRef(new THREE.Raycaster()).current;
+  const mouse = useRef(new THREE.Vector2()).current;
+  const cameraOffset = useRef(new THREE.Vector3(8, 14, -3)).current;
+
+  const modalControllerRef = useRef(null);
+  const groundControllerRef = useRef(null);
+
+  // =========================
+  // 🔁 FRAME LOOP (HOOK)
+  // =========================
+  useThreeSceneLifecycle({
+    onFrame: ({ scene, camera }) => {
+      if (!baseMeshRef.current) {
+        loadAmusementPark({
+          scene,
+          interactables: interactablesRef.current,
+          character: characterRef.current,
+          onBaseFound: (mesh) => {
+            baseMeshRef.current = mesh;
+          },
+        });
+      }
+
+      groundControllerRef.current?.update();
+
+      updateCameraFollow({
+        camera,
+        character: characterRef.current,
+        offset: cameraOffset,
+      });
+
+      const hovered = updateHover({
+        raycaster,
+        mouse,
+        camera,
+        interactables: interactablesRef.current,
+        findRealObject,
+        prevHovered: stateRef.current.getHovered(),
+      });
+
+      hovered
+        ? stateRef.current.setHovered(hovered)
+        : stateRef.current.clearHovered();
+    },
+  });
+
+  // =========================
+  // 🧠 SETUP / CLEANUP
+  // =========================
   useEffect(() => {
-    // ===== Core state =====
-    const cameraOffset = new THREE.Vector3(8, 14, -3);
-    const raycaster = new THREE.Raycaster();
-    const mouse = new THREE.Vector2();
+    const state = stateRef.current;
+    const character = characterRef.current;
 
-    const interactables = [];
-    let hovered = null;
+    modalControllerRef.current = createModalController(modalContent);
+    modalControllerRef.current.bind();
 
-    const character = {
-      instance: null,
-      isMoving: false,
-      spawnPosition: new THREE.Vector3(),
-    };
-
-    const baseMesh = { current: null };
-
-    // ===== Modal =====
-    const modalController = createModalController(modalContent);
-    modalController.bind();
-
-    // ===== Scene =====
-    const scene = createScene();
-    setupLights(scene);
-
-    const canvas = document.getElementById("experience-canvas");
-    if (!canvas) return;
-
-    const sizes = {
-      width: window.innerWidth,
-      height: window.innerHeight,
-    };
-
-    const renderer = createRenderer(canvas, sizes);
-
-    loadAmusementPark({
-      scene,
-      interactables,
-      character,
-      onBaseFound: (mesh) => {
-        baseMesh.current = mesh;
-      },
-    });
-
-    const { camera, controls } = createCamera(sizes, canvas);
-    scene.add(camera);
-
-    // ===== Resize =====
-    function onResize() {
-      sizes.width = window.innerWidth;
-      sizes.height = window.innerHeight;
-
-      const aspect = sizes.width / sizes.height;
-      camera.left = -aspect * 50;
-      camera.right = aspect * 50;
-      camera.top = 50;
-      camera.bottom = -50;
-      camera.updateProjectionMatrix();
-
-      renderer.setSize(sizes.width, sizes.height);
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    }
-    window.addEventListener("resize", onResize);
-
-    // ===== Respawn =====
     function respawnCharacter() {
       if (!character.instance) return;
 
@@ -101,83 +99,45 @@ export function useAmusementPark() {
       });
     }
 
-    // ===== Input handlers =====
-    function handlePointerMove(event) {
-      mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-      mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-    }
-
-    function handleGlobalClick() {
-      modalController.handleClick(hovered);
-    }
-
     const { handleKeyDown } = createCharacterController(
       character,
       respawnCharacter
     );
 
-    // ===== Controllers =====
-    const groundController = createGroundController({
+    groundControllerRef.current = createGroundController({
       character,
       raycaster,
-      baseMesh,
+      baseMesh: baseMeshRef,
       respawnCharacter,
     });
 
     const inputController = createInputController({
       onKeyDown: handleKeyDown,
-      onPointerMove: handlePointerMove,
-      onClick: handleGlobalClick,
+      onPointerMove: (e) => {
+        mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+        mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+      },
+      onClick: () => {
+        modalControllerRef.current.handleClick(state.getHovered());
+      },
     });
 
     inputController.bind();
 
-    // ===== Helpers =====
-    function findRealObject(mesh) {
-      let obj = mesh;
-      while (obj.parent) {
-        if (obj.name && obj.name !== "base" && obj.name !== "Scene") {
-          return obj;
-        }
-        obj = obj.parent;
-      }
-      return null;
-    }
-
-    // ===== Animation loop =====
-    function animate() {
-      controls.update();
-      groundController.update();
-
-      updateCameraFollow({
-        camera,
-        character,
-        offset: cameraOffset,
-      });
-
-      hovered = updateHover({
-        raycaster,
-        mouse,
-        camera,
-        interactables,
-        findRealObject,
-        prevHovered: hovered,
-      });
-
-      renderer.render(scene, camera);
-    }
-
-    renderer.setAnimationLoop(animate);
-
-    // ===== Cleanup =====
     return () => {
-      window.removeEventListener("resize", onResize);
-
       inputController.cleanup();
-      modalController.cleanup();
-
-      renderer.dispose();
-      renderer.setAnimationLoop(null);
+      modalControllerRef.current.cleanup();
     };
   }, []);
+
+  function findRealObject(mesh) {
+    let obj = mesh;
+    while (obj.parent) {
+      if (obj.name && obj.name !== "base" && obj.name !== "Scene") {
+        return obj;
+      }
+      obj = obj.parent;
+    }
+    return null;
+  }
 }
