@@ -2,14 +2,12 @@
 
 import { useEffect } from "react";
 import * as THREE from "three";
+import { createScene } from "./scene";
+import { setupLights } from "./lights";
+import { createCamera } from "./camera";
+import { createRenderer } from "./renderer";
 
-export function useThreeSceneLifecycle({
-  createScene,
-  setupLights,
-  createCamera,
-  createRenderer,
-  onFrame,
-}) {
+export function useThreeSceneLifecycle({ onFrame }) {
   useEffect(() => {
     const scene = createScene();
 
