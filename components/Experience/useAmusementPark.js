@@ -17,6 +17,7 @@ import { updateHover } from "./hoverController.js";
 import { updateCameraFollow } from "./cameraFollow.js";
 import { createModalController } from "./modalController.js";
 import { modalContent } from "./data/modalContent.js";
+import { createInputController } from "./inputController.js";
 
 export function useAmusementPark() {
   useEffect(() => {
@@ -39,18 +40,6 @@ export function useAmusementPark() {
     // ===== Modal =====
     const modalController = createModalController(modalContent);
     modalController.bind();
-
-    const handleGlobalClick = () => {
-      modalController.handleClick(hovered);
-    };
-    window.addEventListener("click", handleGlobalClick);
-
-    // ===== Pointer =====
-    function onPointerMove(event) {
-      mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-      mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-    }
-    window.addEventListener("pointermove", onPointerMove);
 
     // ===== Scene =====
     const scene = createScene();
@@ -112,6 +101,21 @@ export function useAmusementPark() {
       });
     }
 
+    // ===== Input handlers =====
+    function handlePointerMove(event) {
+      mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+      mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+    }
+
+    function handleGlobalClick() {
+      modalController.handleClick(hovered);
+    }
+
+    const { handleKeyDown } = createCharacterController(
+      character,
+      respawnCharacter
+    );
+
     // ===== Controllers =====
     const groundController = createGroundController({
       character,
@@ -120,11 +124,13 @@ export function useAmusementPark() {
       respawnCharacter,
     });
 
-    const { handleKeyDown } = createCharacterController(
-      character,
-      respawnCharacter
-    );
-    window.addEventListener("keydown", handleKeyDown);
+    const inputController = createInputController({
+      onKeyDown: handleKeyDown,
+      onPointerMove: handlePointerMove,
+      onClick: handleGlobalClick,
+    });
+
+    inputController.bind();
 
     // ===== Helpers =====
     function findRealObject(mesh) {
@@ -166,11 +172,10 @@ export function useAmusementPark() {
     // ===== Cleanup =====
     return () => {
       window.removeEventListener("resize", onResize);
-      window.removeEventListener("keydown", handleKeyDown);
-      window.removeEventListener("pointermove", onPointerMove);
-      window.removeEventListener("click", handleGlobalClick);
 
+      inputController.cleanup();
       modalController.cleanup();
+
       renderer.dispose();
       renderer.setAnimationLoop(null);
     };
