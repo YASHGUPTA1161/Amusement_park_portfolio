@@ -1,11 +1,16 @@
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 
+let loaded = false; // 🔒 module-level guard
+
 export function loadAmusementPark({
   scene,
   interactables,
   character,
   onBaseFound,
 }) {
+  if (loaded) return; // ⛔ prevent double load
+  loaded = true;
+
   const loader = new GLTFLoader();
 
   loader.load(
@@ -34,6 +39,7 @@ export function loadAmusementPark({
     undefined,
     (err) => {
       console.error("Failed to load GLB", err);
+      loaded = false; // optional: allow retry on failure
     }
   );
 }
