@@ -7,10 +7,13 @@ export function loadAmusementPark({
   interactables,
   character,
   onBaseFound,
+  onLoad,
 }) {
   if (loaded) return; // ⛔ prevent double load
   loaded = true;
 
+  // We can use a LoadingManager if we had multiple assets, 
+  // but for a single GLTF, the success callback is sufficient.
   const loader = new GLTFLoader();
 
   loader.load(
@@ -35,6 +38,9 @@ export function loadAmusementPark({
       });
 
       scene.add(glb.scene);
+      
+      // Notify ready
+      onLoad?.();
     },
     undefined,
     (err) => {

@@ -11,6 +11,7 @@ import { createGroundController } from "./groundController.js";
 import { updateHover } from "./hoverController.js";
 import { updateCameraFollow } from "./cameraFollow.js";
 import { createModalController } from "./modalController.js";
+import { createLoadingController } from "./loadingController.js";
 import { modalContent } from "./data/modalContent.js";
 import { createInputController } from "./inputController.js";
 import { createStateController } from "./stateController.js";
@@ -35,6 +36,7 @@ export function useAmusementPark() {
 
   const modalControllerRef = useRef(null);
   const groundControllerRef = useRef(null);
+  const loadingControllerRef = useRef(null);
 
   // =========================
   // 🔁 FRAME LOOP (HOOK)
@@ -49,6 +51,10 @@ export function useAmusementPark() {
           onBaseFound: (mesh) => {
             baseMeshRef.current = mesh;
           },
+          onLoad: () => {
+             // Delay slightly to ensure parsing is done? Or just call it.
+             loadingControllerRef.current?.setLoaded();
+          }
         });
       }
 
@@ -92,8 +98,21 @@ export function useAmusementPark() {
       movementAudioRef.current = createMovementAudio();
     }
 
+    // Modal
     modalControllerRef.current = createModalController(modalContent);
     modalControllerRef.current.bind();
+    
+    // Loading Screen
+    if (!loadingControllerRef.current) {
+      loadingControllerRef.current = createLoadingController({
+          onEnter: () => {
+              // Optional: If you want to play a sound on enter like the original code did
+              // playSound("projectsSFX"); 
+              // playSound("backgroundMusic"); 
+          }
+      });
+      loadingControllerRef.current.bind();
+    }
 
     function respawnCharacter() {
       if (!character.instance) return;
@@ -140,6 +159,7 @@ export function useAmusementPark() {
       inputController.cleanup();
       modalControllerRef.current.cleanup();
       movementAudioRef.current.cleanup();
+      loadingControllerRef.current?.cleanup();
     };
   }, []);
 
