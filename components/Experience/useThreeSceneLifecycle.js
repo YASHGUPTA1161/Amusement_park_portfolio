@@ -7,11 +7,18 @@ import { setupLights } from "./lights";
 import { createCamera } from "./camera";
 import { createRenderer } from "./renderer";
 
+// Store lighting controller globally so theme controller can access it
+let lightingController = null;
+
+export function getLightingController() {
+  return lightingController;
+}
+
 export function useThreeSceneLifecycle({ onFrame }) {
   useEffect(() => {
     const scene = createScene();
 
-    const cleanupLights = setupLights(scene);
+    lightingController = setupLights(scene);
 
     const canvas = document.getElementById("experience-canvas");
     if (!canvas) return;
@@ -52,7 +59,8 @@ export function useThreeSceneLifecycle({ onFrame }) {
 
     return () => {
       window.removeEventListener("resize", onResize);
-      cleanupLights?.();
+      lightingController?.cleanup();
+      lightingController = null;
       renderer.dispose();
       renderer.setAnimationLoop(null);
     };

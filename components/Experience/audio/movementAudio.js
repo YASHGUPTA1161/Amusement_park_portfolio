@@ -22,6 +22,14 @@ export function createMovementAudio() {
       playing = false;
     },
 
+    mute() {
+      walk.mute(true);
+    },
+
+    unmute() {
+      walk.mute(false);
+    },
+
     cleanup() {
       walk.unload();
     },

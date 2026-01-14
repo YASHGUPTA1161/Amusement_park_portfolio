@@ -8,6 +8,7 @@
 :root {
   --pastel-pink: #ad8671;
   --pastel-blue: #717dad;
+  --dark-night: #1a1a2e;
 }
 
 .light-theme {
@@ -15,7 +16,7 @@
 }
 
 .dark-theme {
-  --default-bg: var(--pastel-blue);
+  --default-bg: var(--dark-night);
 }
 
 /* Experience */

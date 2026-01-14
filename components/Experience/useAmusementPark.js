@@ -17,10 +17,14 @@ import { createInputController } from "./inputController.js";
 import { createStateController } from "./stateController.js";
 import { useThreeSceneLifecycle } from "./useThreeSceneLifecycle";
 import { createMovementAudio } from "./audio/movementAudio";
+import { createBackgroundMusic } from "./audio/backgroundMusic.js";
+import { createThemeController } from "./themeController.js";
+import { createAudioController } from "./audioController.js";
 
 export function useAmusementPark() {
   // ===== Persistent refs (shared with render loop) =====
   const movementAudioRef = useRef(null);
+  const backgroundMusicRef = useRef(null);
   const stateRef = useRef(createStateController());
   const baseMeshRef = useRef(null);
   const interactablesRef = useRef([]);
@@ -37,6 +41,8 @@ export function useAmusementPark() {
   const modalControllerRef = useRef(null);
   const groundControllerRef = useRef(null);
   const loadingControllerRef = useRef(null);
+  const themeControllerRef = useRef(null);
+  const audioControllerRef = useRef(null);
 
   // =========================
   // 🔁 FRAME LOOP (HOOK)
@@ -98,6 +104,10 @@ export function useAmusementPark() {
       movementAudioRef.current = createMovementAudio();
     }
 
+    if (!backgroundMusicRef.current) {
+      backgroundMusicRef.current = createBackgroundMusic();
+    }
+
     // Modal
     modalControllerRef.current = createModalController(modalContent);
     modalControllerRef.current.bind();
@@ -112,6 +122,20 @@ export function useAmusementPark() {
           }
       });
       loadingControllerRef.current.bind();
+    }
+
+    // Theme Controller
+    if (!themeControllerRef.current) {
+      themeControllerRef.current = createThemeController();
+      themeControllerRef.current.bind();
+    }
+
+    // Audio Controller
+    if (!audioControllerRef.current) {
+      audioControllerRef.current = createAudioController({
+        backgroundMusic: backgroundMusicRef.current,
+      });
+      audioControllerRef.current.bind();
     }
 
     function respawnCharacter() {
@@ -159,7 +183,10 @@ export function useAmusementPark() {
       inputController.cleanup();
       modalControllerRef.current.cleanup();
       movementAudioRef.current.cleanup();
+      backgroundMusicRef.current?.cleanup();
       loadingControllerRef.current?.cleanup();
+      themeControllerRef.current?.cleanup();
+      audioControllerRef.current?.cleanup();
     };
   }, []);
 
