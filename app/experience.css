@@ -45,7 +45,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: var(--default-bg);
+  background-color: #d7d1f3; /* Light purple background */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -65,21 +65,21 @@
 
 .enter-button {
   position: absolute;
-  top: 50%;
+  top: 68%;
   left: 50%;
   transform: translate(-50%, -50%);
-  color: #ffffff;
+  color: #333;
   font-size: 36px;
-  background: var(--default-bg);
-  border: 3px solid white;
+  background: #d7d1f3;
+  border: 3px solid #333;
   padding: 8px 20px;
   opacity: 0;
 }
 
 .enter-button:hover {
   cursor: pointer;
-  background-color: #fff;
-  color: var(--default-bg);
+  background-color: #333;
+  color: #d7d1f3;
 }
 
 .instructions {
@@ -88,13 +88,37 @@
   top: 90%;
   left: 50%;
   transform: translate(-50%, -50%);
-  color: #fff;
+  color: #333;
   font-size: 26px;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.loading-logo {
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+  max-width: 80%;
+  height: auto;
+  opacity: 0;
+  animation: fadeInLogo 0.5s ease-in forwards;
+  animation-delay: 0.3s;
+}
+
+@keyframes fadeInLogo {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
 }
 
 /* Modal */

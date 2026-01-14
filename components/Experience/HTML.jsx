@@ -11,6 +11,11 @@ export default function HTML() {
       {/* Loading Screen */}
       <div className="loading-screen" id="loadingScreen">
         <div className="loading-text">Loading...</div>
+        <img 
+          src="/logo/logo.png" 
+          alt="Logo" 
+          className="loading-logo"
+        />
         <button className="enter-button">Enter Park!</button>
         <div className="instructions">~ use arrow keys to move ~</div>
       </div>
