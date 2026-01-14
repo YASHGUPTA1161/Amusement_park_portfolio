@@ -31,8 +31,6 @@ export function createGroundController({
     if (!character.instance || character.isMoving) return;
 
     if (!isOnGround()) {
-      character.isMoving = true;
-
       gsap.to(character.instance.position, {
         y: -20,
         duration: 1,

@@ -5,10 +5,10 @@ export function createCamera(sizes, canvas) {
   const aspect = sizes.width / sizes.height;
 
   const camera = new THREE.OrthographicCamera(
-    -aspect * 10,
-    aspect * 10,
-    10,
-    -10,
+    -aspect * 12,
+    aspect * 12,
+    12,
+    -12,
     1,
     1000
   );

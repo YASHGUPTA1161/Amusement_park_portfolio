@@ -15,9 +15,11 @@ import { modalContent } from "./data/modalContent.js";
 import { createInputController } from "./inputController.js";
 import { createStateController } from "./stateController.js";
 import { useThreeSceneLifecycle } from "./useThreeSceneLifecycle";
+import { createMovementAudio } from "./audio/movementAudio";
 
 export function useAmusementPark() {
   // ===== Persistent refs (shared with render loop) =====
+  const movementAudioRef = useRef(null);
   const stateRef = useRef(createStateController());
   const baseMeshRef = useRef(null);
   const interactablesRef = useRef([]);
@@ -51,6 +53,12 @@ export function useAmusementPark() {
       }
 
       groundControllerRef.current?.update();
+      // 🔊 CHARACTER MOVEMENT SOUND (THIS WAS MISSING)
+      if (characterRef.current.isMoving) {
+        movementAudioRef.current?.start();
+      } else {
+        movementAudioRef.current?.stop();
+      }
 
       updateCameraFollow({
         camera,
@@ -79,6 +87,10 @@ export function useAmusementPark() {
   useEffect(() => {
     const state = stateRef.current;
     const character = characterRef.current;
+
+    if (!movementAudioRef.current) {
+      movementAudioRef.current = createMovementAudio();
+    }
 
     modalControllerRef.current = createModalController(modalContent);
     modalControllerRef.current.bind();
@@ -127,6 +139,7 @@ export function useAmusementPark() {
     return () => {
       inputController.cleanup();
       modalControllerRef.current.cleanup();
+      movementAudioRef.current.cleanup();
     };
   }, []);
 
