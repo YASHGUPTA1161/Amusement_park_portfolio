@@ -43,7 +43,7 @@ export function setupLights(scene) {
   sun.shadow.camera.far = 150;
 
   sun.shadow.normalBias = 0.1;
-  sun.shadow.mapSize.set(4096, 4096);
+  sun.shadow.mapSize.set(2048, 2048); // Optimized from 4096 for better performance
 
   sun.target.position.set(50, 0, 0);
   scene.add(sun.target);

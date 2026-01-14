@@ -12,7 +12,7 @@ export function createRenderer(canvas, sizes) {
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.2;
+  renderer.toneMappingExposure = 1.0; // Optimized from 1.2
 
   return renderer;
 }
