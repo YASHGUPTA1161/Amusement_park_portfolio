@@ -293,6 +293,25 @@
   display: none;
 }
 
+/* Toggle Window Button */
+.window-toggle-button {
+  z-index: 500;
+  position: absolute;
+  top: 32px;
+  right: 160px;
+  background: var(--default-bg);
+  height: 48px;
+  width: 48px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 3px solid white;
+  padding: 8px;
+  cursor: pointer;
+  transition: background 0.4s ease-in;
+  transition-delay: 0.1s;
+}
+
 /* Media Queries */
 
 @media (max-width: 1100px) {

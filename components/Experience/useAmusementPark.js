@@ -20,6 +20,7 @@ import { createMovementAudio } from "./audio/movementAudio";
 import { createBackgroundMusic } from "./audio/backgroundMusic.js";
 import { createThemeController } from "./themeController.js";
 import { createAudioController } from "./audioController.js";
+import { createWindowController } from "./windowController.js";
 
 export function useAmusementPark() {
   // ===== Persistent refs (shared with render loop) =====
@@ -43,6 +44,7 @@ export function useAmusementPark() {
   const loadingControllerRef = useRef(null);
   const themeControllerRef = useRef(null);
   const audioControllerRef = useRef(null);
+  const windowControllerRef = useRef(null);
 
   // =========================
   // 🔁 FRAME LOOP (HOOK)
@@ -138,6 +140,12 @@ export function useAmusementPark() {
       audioControllerRef.current.bind();
     }
 
+    // Window Controller
+    if (!windowControllerRef.current) {
+      windowControllerRef.current = createWindowController();
+      windowControllerRef.current.bind();
+    }
+
     function respawnCharacter() {
       if (!character.instance) return;
 
@@ -187,6 +195,7 @@ export function useAmusementPark() {
       loadingControllerRef.current?.cleanup();
       themeControllerRef.current?.cleanup();
       audioControllerRef.current?.cleanup();
+      windowControllerRef.current?.cleanup();
     };
   }, []);
 

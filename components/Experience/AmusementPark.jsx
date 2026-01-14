@@ -1,6 +1,7 @@
 "use client";
 
 import HTML from "./HTML.jsx";
+import CenteredWindow from "../CenteredWindow";
 import { useAmusementPark } from "./useAmusementPark";
 
 export default function AmusementPark() {
@@ -9,6 +10,7 @@ export default function AmusementPark() {
   return (
     <>
       <HTML />
+      <CenteredWindow />
     </>
   );
 }
