@@ -1,10 +1,17 @@
 import React from "react";
 import Image from "next/image";
+import { useDraggableWindow } from "./DragableWindow";
 
 const CenteredWindow = () => {
+  const dragRef = useDraggableWindow();
   return (
     <div className="center-wrap">
-      <div className="window">
+      <div
+        ref={dragRef}
+        id="mydiv"
+        className="window"
+        style={{ position: "absolute" }}
+      >
         <div className="titlebar">Home</div>
         <div className="window-body">
           <h1 className="hero-title">

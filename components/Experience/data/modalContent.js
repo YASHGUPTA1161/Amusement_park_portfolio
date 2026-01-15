@@ -1,51 +1,51 @@
 export const modalContent = {
   shop_25: {
-    title: "🍦 Ice Cream Stall",
-    content: "Where I learned the importance of 'soft skills' - literally. My summer job involved turning milk into smiles while debugging the broken freezer. Key achievement: Reduced customer complaints by 90% after fixing the 'brain freeze' feature.",
+    title: "🚧 Ice Cream Stall",
+    content: "Under construction! 👷 Still working on the raycaster for this one. The collision detection is giving me brain freeze 😅 Come back later when I've debugged why you can walk through walls! 🫡",
   },
   shop_18: {
-    title: "🎮 Game Booth",
-    content: "My arcade gaming obsession translated into real-world problem-solving skills. High score in Debugging (999,999 points). Proficient in handling edge cases—like when the claw machine grabs air instead of prizes. Turns out, physics engines matter in both games AND web development.",
+    title: "🚧 Game Booth",
+    content: "Oops! This area is still under development 👷‍♂️ The physics collider isn't quite ready yet. Currently debugging why objects float in mid-air 😅 Stay tuned! 🫡",
   },
   shop_17: {
-    title: "🧸 Toy Shop",
-    content: "Where I mastered inventory management systems (a.k.a. organizing action figures alphabetically). Built my first 'database' using Excel and tears. Pro tip: Never underestimate the complexity of a retail POS system. Also, I can assemble IKEA furniture blindfolded now.",
+    title: "🚧 Toy Shop",
+    content: "Work in progress! 🚧 The raycaster here needs some fine-tuning. Right now it's detecting EVERYTHING except what it should 😅 Bear with me while I fix the hit detection! 👷",
   },
   shop_26: {
-    title: "🎯 Skill Game",
-    content: "Ring toss champion 2019-2022. Failed 10,000 times, succeeded once—that's basically every programmer's journey. This booth taught me persistence, precision, and that sometimes you need to adjust your angle (or refactor your code) to hit the target.",
+    title: "🚧 Skill Game",
+    content: "Still under construction! 👷 The collision system is being a bit stubborn. It's almost like the code itself is playing hard to get 😅 Check back soon! 🫡",
   },
   shop_41: {
-    title: "🍜 Noodle Stand",
-    content: "My first lesson in time complexity: O(hungry) customers waiting while I optimized noodle cooking algorithms. Learned the hard way that multitasking is a myth—try juggling 5 orders and NOT burning something. Also, I make a mean ramen. Hire me for code AND lunch.",
+    title: "🚧 Noodle Stand",
+    content: "Not quite ready yet! 🚧 Working on fixing the raycaster boundary detection. Currently it thinks you're clicking on the sky instead of noodles 😅 Patience, young grasshopper! 👷🫡",
   },
 
   bill_board_1_2: {
-    title: "📢 Billboard",
-    content: "NOW HIRING: Full-stack developer with 10 years experience, willing to work for exposure. Must know React, Vue, Angular, Svelte, and telepathy. Bonus if you can fix printers. (This is satire. Please hire me for real money.)",
+    title: "� Billboard",
+    content: "Under construction! 👷 This billboard's collider is still cooking in the dev oven. The raycaster keeps missing it like my commits miss the deadline 😅 Will be ready soon! 🫡",
   },
   small_billboard_2: {
-    title: "🪧 Info Board",
-    content: "YOU ARE HERE → Lost in the job market. But hey, at least you found this cool 3D portfolio! Click around, explore my projects, and maybe send me a job offer. I promise I'm better at coding than making maps.",
+    title: "� Info Board",
+    content: "Work in progress! 🚧 The interaction system here needs some love. Currently debugging why clicking does nothing... oh wait, that's almost done 😅 Almost there! 👷🫡",
   },
   yellow_truck: {
-    title: "🚚 Delivery Truck",
-    content: "Delivering quality code faster than Amazon Prime. This truck represents my commits—frequent, reliable, and occasionally breaking production. But don't worry, I always ship hotfixes within 24 hours. Free shipping on bug-free features!",
+    title: "� Delivery Truck",
+    content: "Still under development! 👷 This truck's collision box is being rebuilt from scratch. Right now you can walk through it like a ghost 😅 Solid objects coming soon! 🫡🚧",
   },
   ice_cream_truck: {
-    title: "🍨 Ice Cream Truck",
-    content: "Just like this truck plays music to attract customers, my code plays well with APIs. Specializing in smooth integrations and sweet performance optimizations. Warning: May cause brain freeze when reviewing my advanced TypeScript generics.",
+    title: "🚧 Ice Cream Truck",
+    content: "Under construction! 🚧 The raycaster for this bad boy is in beta testing. It works 60% of the time, every time 😅 Working on that 100% accuracy! 👷🫡",
   },
   half_truck: {
-    title: "🚘 Vintage Car",
-    content: "My first coding project: a working car. Just kidding, I only fixed the radio by googling '2005 Honda Civic aux cable not working.' But that taught me the most important skill: knowing how to search Stack Overflow effectively. 10+ years experience Googling things.",
+    title: "� Vintage Car",
+    content: "Not ready yet! 👷 Still debugging the collision mesh. Fun fact: this car is currently intangible like my motivation on Mondays 😅 Solid progress being made! 🫡🚧",
   },
   wending_machine: {
-    title: "🥤 Vending Machine",
-    content: "Insert resume → Receive job offer. Error 404: Dream job not found. Please try again or restock opportunities. This machine runs on JavaScript (it's broken half the time but when it works, it's magical).",
+    title: "🚧 Vending Machine",
+    content: "Under construction! 🚧 The interaction trigger is misbehaving. It's like the vending machine that eats your money but this one eats my clicks 😅 Fix incoming! 👷🫡",
   },
   wending_machine_2: {
-    title: "🥤 Coffee Vending Machine",
-    content: "Powered by caffeine and existential dread. This machine has dispensed over 10,000 cups of coffee during late-night coding sessions. Fun fact: 87% of my best code was written at 3 AM with questionable amounts of espresso. Hire me, I come with my own fuel.",
+    title: "🚧 Coffee Vending Machine",
+    content: "Work in progress! 👷 Still calibrating the raycaster precision. Right now it's as accurate as a weather forecast 😅 Getting there one debug session at a time! 🫡🚧",
   },
 };
