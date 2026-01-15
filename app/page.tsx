@@ -1,6 +1,7 @@
-import CenteredWindow from "@/components/CenteredWindow";
-import Social from "@/components/Social";
+"use client";
+
+import AmusementPark from "@/components/Experience/AmusementPark";
 
 export default function Home() {
-  return <div className="page-container">HELLO</div>;
+  return <AmusementPark />;
 }
