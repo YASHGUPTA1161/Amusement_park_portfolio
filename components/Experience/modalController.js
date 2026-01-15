@@ -51,17 +51,23 @@ export function createModalController(modalContent) {
     open(hovered.name);
   }
 
+  // Use event delegation for reliable click handling
+  function handleDocumentClick(e) {
+    // Check if clicked element is exit button or overlay
+    if (e.target.classList.contains("modal-exit-button") || 
+        e.target.classList.contains("modal-bg-overlay")) {
+      close();
+    }
+  }
+
   function bind() {
     refreshElements(); // Critical: Ensure we have the latest DOM elements
-    exitButton?.addEventListener("click", close);
-    overlay?.addEventListener("click", close);
+    // Use event delegation on document for reliable handling
+    document.addEventListener("click", handleDocumentClick);
   }
 
   function cleanup() {
-    // We should try to clean up using the same references if possible, 
-    // but if they are gone, no harm.
-    exitButton?.removeEventListener("click", close);
-    overlay?.removeEventListener("click", close);
+    document.removeEventListener("click", handleDocumentClick);
   }
 
   return { handleClick, bind, cleanup };

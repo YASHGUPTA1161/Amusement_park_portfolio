@@ -3,20 +3,22 @@ export function updateHover({
   mouse,
   camera,
   interactables,
-  findRealObject,
+  meshToRoot,
   prevHovered,
 }) {
   raycaster.setFromCamera(mouse, camera);
-  const hits = raycaster.intersectObjects(interactables, false);
+  
+  // Raycast recursively against all children
+  const hits = raycaster.intersectObjects(interactables, true);
 
   if (hits.length === 0) return null;
 
   const hitMesh = hits[0].object;
-  const realObject = findRealObject(hitMesh);
+  const root = meshToRoot.get(hitMesh);
 
-  if (!realObject) return null;
-  if (prevHovered === realObject) return prevHovered;
+  if (!root) return null;
+  if (root === prevHovered) return prevHovered;
 
-  console.log("Hovered:", realObject.name);
-  return realObject;
+  console.log("Hovered:", root.name);
+  return root;
 }

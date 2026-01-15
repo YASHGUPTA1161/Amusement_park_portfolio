@@ -5,9 +5,11 @@ let loaded = false; // 🔒 module-level guard
 export function loadAmusementPark({
   scene,
   interactables,
+  meshToRoot,
   character,
   onBaseFound,
   onLoad,
+  modalContent,
 }) {
   if (loaded) return; // ⛔ prevent double load
   loaded = true;
@@ -19,16 +21,38 @@ export function loadAmusementPark({
   loader.load(
     "./amusement_park.glb",
     (glb) => {
-      glb.scene.traverse((child) => {
-        if (child.name.toLowerCase() === "base") {
-          onBaseFound(child);
-        }
+      let baseMesh = null;
 
+      glb.scene.traverse((child) => {
         if (child.isMesh) {
           child.castShadow = true;
           child.receiveShadow = true;
           child.material.metalness = 0.5;
+        }
+
+        // Only roots with modals are interactable
+        if (modalContent[child.name]) {
           interactables.push(child);
+
+          // Map ALL descendants → this root
+          child.traverse((desc) => {
+            if (desc.isMesh) {
+              meshToRoot.set(desc, child);
+            }
+          });
+        }
+
+        if (child.name.toLowerCase() === "base") {
+          baseMesh = child;
+          onBaseFound(child);
+          
+          // Add base to interactables for hover detection (but no modal)
+          interactables.push(child);
+          child.traverse((desc) => {
+            if (desc.isMesh) {
+              meshToRoot.set(desc, child);
+            }
+          });
         }
 
         if (child.name.toLowerCase() === "character") {

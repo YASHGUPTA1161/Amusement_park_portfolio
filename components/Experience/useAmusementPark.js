@@ -29,6 +29,7 @@ export function useAmusementPark() {
   const stateRef = useRef(createStateController());
   const baseMeshRef = useRef(null);
   const interactablesRef = useRef([]);
+  const meshToRootRef = useRef(new Map());
   const characterRef = useRef({
     instance: null,
     isMoving: false,
@@ -55,7 +56,9 @@ export function useAmusementPark() {
         loadAmusementPark({
           scene,
           interactables: interactablesRef.current,
+          meshToRoot: meshToRootRef.current,
           character: characterRef.current,
+          modalContent,
           onBaseFound: (mesh) => {
             baseMeshRef.current = mesh;
           },
@@ -85,7 +88,7 @@ export function useAmusementPark() {
         mouse,
         camera,
         interactables: interactablesRef.current,
-        findRealObject,
+        meshToRoot: meshToRootRef.current,
         prevHovered: stateRef.current.getHovered(),
       });
 
@@ -199,14 +202,5 @@ export function useAmusementPark() {
     };
   }, []);
 
-  function findRealObject(mesh) {
-    let obj = mesh;
-    while (obj.parent) {
-      if (obj.name && obj.name !== "base" && obj.name !== "Scene") {
-        return obj;
-      }
-      obj = obj.parent;
-    }
-    return null;
-  }
+
 }
