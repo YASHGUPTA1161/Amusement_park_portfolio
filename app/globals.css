@@ -41,6 +41,32 @@
   font-size: 16px;
   font-weight: bold;
   font-family: Arial, Helvetica, sans-serif;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.titlebar span {
+  flex: 1;
+}
+
+.close-btn {
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 0;
+  margin-left: auto;
+  line-height: 1;
+  transition: all 0.2s ease;
+  min-width: 24px;
+  text-align: center;
+}
+
+.close-btn:hover {
+  color: #ff5555;
+  transform: scale(1.2);
 }
 .window-body {
   padding: 48px 64px;
