@@ -1,0 +1,74 @@
+.waveContainer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 40%;
+  overflow: visible;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.waveContainer img {
+  width: 100%;
+  height: auto;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  transform-origin: bottom;
+  image-rendering: crisp-edges;
+}
+
+.shape {
+  position: absolute !important;
+  left: 0;
+  bottom: -2vw;
+}
+
+.wave1 {
+  opacity: 0.4;
+  bottom: -0.1vw;
+  animation: move1 5s infinite ease-in-out;
+}
+
+@keyframes move1 {
+  50% {
+    transform: translateY(15px);
+  }
+}
+
+.wave2 {
+  opacity: 0.3;
+  bottom: 0.5vw;
+  animation: move2 4s infinite ease-in-out;
+}
+
+@keyframes move2 {
+  50% {
+    transform: translateY(35px);
+  }
+}
+
+.wave3 {
+  bottom: 0.3vw;
+  opacity: 0.2;
+  animation: move3 3.5s infinite ease-in-out;
+}
+
+@keyframes move3 {
+  50% {
+    transform: translateY(25px);
+  }
+}
+
+.wave4 {
+  bottom: 0.1vw;
+  opacity: 0.3;
+  animation: move4 3s infinite ease-in-out;
+}
+
+@keyframes move4 {
+  50% {
+    transform: translateY(20px);
+  }
+}

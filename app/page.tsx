@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import CenteredWindow from "@/components/CenteredWindow";
 import AmusementPark from "@/components/Experience/AmusementPark";
+import WaveAnimation from "@/components/WaveAnimation";
 
 export default function Home() {
   const [showGame, setShowGame] = useState(false);
@@ -29,12 +30,16 @@ export default function Home() {
     <div style={{
       width: '100vw',
       height: '100vh',
-      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+      backgroundColor: '#577eff',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      position: 'relative'
+      position: 'relative',
+      overflow: 'hidden'
     }}>
+      {/* Wave Animation Background */}
+      <WaveAnimation />
+
       {/* Lottie Game Icon - Top Left */}
       <div 
         onClick={() => setShowGame(true)}
@@ -66,3 +71,4 @@ export default function Home() {
     </div>
   );
 }
+
