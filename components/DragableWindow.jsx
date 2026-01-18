@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 
-export function useDraggableWindow() {
+export function useDragableWindow() {
   const ref = useRef(null);
 
   useEffect(() => {
