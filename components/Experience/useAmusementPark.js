@@ -126,13 +126,18 @@ export function useAmusementPark() {
               // playSound("backgroundMusic"); 
           }
       });
-      loadingControllerRef.current.bind();
     }
+    // Always bind to reset the loading screen state
+    setTimeout(() => {
+      loadingControllerRef.current?.bind();
+    }, 100);
 
     // Theme Controller
     if (!themeControllerRef.current) {
       themeControllerRef.current = createThemeController();
-      themeControllerRef.current.bind();
+      setTimeout(() => {
+        themeControllerRef.current?.bind();
+      }, 100);
     }
 
     // Audio Controller
@@ -140,13 +145,17 @@ export function useAmusementPark() {
       audioControllerRef.current = createAudioController({
         backgroundMusic: backgroundMusicRef.current,
       });
-      audioControllerRef.current.bind();
+      setTimeout(() => {
+        audioControllerRef.current?.bind();
+      }, 100);
     }
 
     // Window Controller
     if (!windowControllerRef.current) {
       windowControllerRef.current = createWindowController();
-      windowControllerRef.current.bind();
+      setTimeout(() => {
+        windowControllerRef.current?.bind();
+      }, 100);
     }
 
     function respawnCharacter() {
@@ -184,7 +193,7 @@ export function useAmusementPark() {
         mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
       },
       onClick: () => {
-        modalControllerRef.current.handleClick(state.getHovered());
+        modalControllerRef.current?.handleClick(state.getHovered());
       },
     });
 
@@ -192,8 +201,8 @@ export function useAmusementPark() {
 
     return () => {
       inputController.cleanup();
-      modalControllerRef.current.cleanup();
-      movementAudioRef.current.cleanup();
+      modalControllerRef.current?.cleanup();
+      movementAudioRef.current?.cleanup();
       backgroundMusicRef.current?.cleanup();
       loadingControllerRef.current?.cleanup();
       themeControllerRef.current?.cleanup();

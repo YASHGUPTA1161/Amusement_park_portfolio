@@ -9,15 +9,15 @@ export default function HTML() {
       </div>
 
       {/* Loading Screen */}
-      <div className="loading-screen" id="loadingScreen">
-        <div className="loading-text">Loading...</div>
+      <div className="loading-screen" id="loadingScreen" style={{ display: 'flex', opacity: 1, pointerEvents: 'auto' }}>
+        <div className="loading-text" style={{ opacity: 1 }}>Loading...</div>
         <img 
           src="/logo/logo.png" 
           alt="Logo" 
           className="loading-logo"
         />
-        <button className="enter-button">Enter Park!</button>
-        <div className="instructions">~ use arrow keys to move ~</div>
+        <button className="enter-button" style={{ opacity: 0, pointerEvents: 'none' }}>Enter Park!</button>
+        <div className="instructions" style={{ display: 'flex', opacity: 1 }}>~ use arrow keys to move ~</div>
       </div>
 
       {/* Theme Toggle */}
