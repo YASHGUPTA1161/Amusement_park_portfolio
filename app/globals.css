@@ -1,5 +1,13 @@
 @import "tailwindcss";
 
+/* ============================================
+   GLOBAL STYLES
+   ============================================ */
+
+* {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
 .page-container {
   min-height: 100vh;
   display: flex;
@@ -9,6 +17,10 @@
   background-color: palegoldenrod;
   padding: 30px;
 }
+
+/* ============================================
+   CENTERED WINDOW (CenteredWindow.tsx)
+   ============================================ */
 
 .center-wrap {
   position: fixed;
@@ -23,6 +35,7 @@
   background-color: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(4px);
 }
+
 .window {
   width: 100%;
   min-width: 500px;
@@ -35,6 +48,12 @@
     0 10px 0 rgba(0, 0, 0, 0.06),
     0 22px 30px rgba(0, 0, 0, 0.06);
 }
+
+.window-body {
+  padding: 32px;
+  text-align: center;
+}
+
 .titlebar {
   background-color: #000;
   color: #fff;
@@ -69,28 +88,29 @@
   color: #ff5555;
   transform: scale(1.2);
 }
-.window-body {
-  padding: 32px;
-  text-align: center;
-}
 
+/* Home Window Specific Styles */
 .hero-title {
   font-size: 48px;
   font-weight: 350;
   margin: 0;
 }
+
 .muted {
   color: #444;
 }
+
 .accent {
   color: #000;
   font-weight: 500;
 }
+
 .hero-sub {
   font-size: 20px;
   color: #444;
   margin: 16px 0 32px;
 }
+
 .icon-row {
   display: flex;
   flex-wrap: wrap;
@@ -98,17 +118,18 @@
   justify-content: center;
   margin-top: 40px;
 }
+
 .icon-btn {
   background: none;
   border: none;
   cursor: pointer;
   text-align: center;
 }
+
 .icon-box {
   width: 72px;
   height: 72px;
   border-radius: 12px;
-  /* border: 2px solid rgba(0, 0, 0, 0.1); */
   display: grid;
   place-items: center;
   font-size: 28px;
@@ -125,6 +146,28 @@
   color: #555;
   font-family: "Courier New", Courier, monospace;
 }
+
+/* Icon hover effects */
+.icon-btn:hover .icon-box {
+  transform: translateY(-4px);
+  border-color: #ff8a00;
+  transition: 0.2s ease;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+}
+
+.icon-btn:hover .icon-label {
+  color: #ff8a00;
+  transition: 0.2s ease;
+}
+
+.icon-btn:active .icon-box {
+  transform: translateY(-1px) scale(0.97);
+}
+
+/* ============================================
+   SOCIAL LINKS (Social.tsx)
+   ============================================ */
+
 .socials {
   margin-top: 40px;
   display: flex;
@@ -166,29 +209,11 @@
 .social:active {
   transform: translateY(0) scale(0.95);
 }
-/* hover icon*/
-/* Smooth movement */
-.icon-btn:hover .icon-box {
-  transform: translateY(-4px);
-  border-color: #ff8a00; /* highlight border */
-  transition: 0.2s ease;
-}
 
-.icon-btn:hover .icon-label {
-  color: #ff8a00; /* highlight text */
-  transition: 0.2s ease;
-}
+/* ============================================
+   LINKS WINDOW (Links.jsx)
+   ============================================ */
 
-/* Optional: tiny button press animation */
-.icon-btn:active .icon-box {
-  transform: translateY(-1px) scale(0.97);
-}
-
-.icon-btn:hover .icon-box {
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
-}
-/* hover icon*/
-/* grid  */
 .links-grid {
   display: grid;
   grid-template-columns: repeat(3, 80px);
@@ -201,6 +226,34 @@
   flex-direction: column;
   align-items: center;
   gap: 8px;
+  cursor: pointer;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.link-item svg {
+  transition:
+    transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+    filter 0.3s ease;
+}
+
+.link-item:hover {
+  transform: translateY(-4px);
+}
+
+.link-item:hover svg {
+  transform: scale(1.12);
+  filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.18)) brightness(1.05);
+}
+
+.link-item:active {
+  transform: translateY(-1px) scale(0.96);
+}
+
+.link-label {
+  margin-top: 8px;
+  font-size: 12px;
+  color: #555;
+  font-weight: 500;
 }
 
 .link-note {
@@ -213,35 +266,237 @@
   font-family: monospace;
   font-size: 14px;
 }
-.link-item {
-  cursor: pointer;
-  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+/* ============================================
+   WORK WINDOW (Work.jsx)
+   ============================================ */
+
+.work-window {
+  max-width: 900px;
+  max-height: 80vh;
 }
 
-.link-item svg {
-  transition:
-    transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
-    filter 0.3s ease;
+.work-window .window-body {
+  max-height: calc(70vh - 50px);
+  overflow-y: auto;
+  padding: 40px;
 }
 
-/* hover */
-.link-item:hover {
-  transform: translateY(-4px);
+/* Notice Banner */
+.work-notice {
+  background: #f5efd9;
+  padding: 20px 24px;
+  border-radius: 0;
+  margin-bottom: 40px;
+  font-size: 15px;
+  line-height: 1.7;
+  color: #333;
+  text-align: left;
 }
 
-.link-item:hover svg {
-  transform: scale(1.12);
-  filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.18)) brightness(1.05);
-}
-
-/* click feedback */
-.link-item:active {
-  transform: translateY(-1px) scale(0.96);
-}
-
-.link-label {
-  margin-top: 8px;
-  font-size: 12px;
-  color: #555;
+.email-link {
+  color: #ff8a00;
+  text-decoration: underline;
   font-weight: 500;
 }
+
+.email-link:hover {
+  color: #ff6a00;
+  text-decoration-thickness: 2px;
+}
+
+/* Skills Grid (Tools & Development) */
+.work-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  margin-bottom: 24px;
+}
+
+.work-grid-expanded {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px 48px;
+  margin-bottom: 24px;
+}
+
+.work-grid h3 {
+  margin-bottom: 12px;
+  letter-spacing: 1px;
+}
+
+.work-grid-expanded h3 {
+  margin-bottom: 12px;
+  letter-spacing: 1px;
+}
+
+.section-title {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-bottom: 20px;
+  color: #1a1a1a;
+  text-align: left;
+}
+
+/* Skill Tags */
+.tag-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.tag {
+  padding: 6px 14px;
+  border-radius: 8px;
+  background: #ffffff;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+  white-space: nowrap;
+  box-shadow:
+    0 3px 0 rgba(0, 0, 0, 0.08),
+    0 4px 10px rgba(0, 0, 0, 0.06);
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.tag:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 5px 0 rgba(0, 0, 0, 0.1),
+    0 6px 15px rgba(0, 0, 0, 0.12);
+}
+
+/* Separator between sections */
+.work-separator {
+  border: none;
+  border-top: 1px solid #f0f0f0;
+  margin: 48px 0 40px 0;
+}
+
+/* Project Cards */
+.project-card {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 40px;
+  margin-bottom: 48px;
+  align-items: start;
+}
+
+.project-media {
+  width: 320px;
+  height: 240px;
+  border-radius: 24px;
+  overflow: hidden;
+  background: #e8f4f6;
+  border: 3px solid #ddd;
+}
+
+.project-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.project-content {
+  text-align: left;
+}
+
+.project-title {
+  font-size: 26px;
+  font-weight: 700;
+  color: #ff9500;
+  margin-bottom: 16px;
+  text-align: left;
+}
+
+.project-desc {
+  font-size: 15px;
+  line-height: 1.7;
+  margin-bottom: 16px;
+  color: #1a1a1a;
+  text-align: left;
+}
+
+.project-links {
+  font-size: 14px;
+  margin-top: 12px;
+  margin-bottom: 16px;
+  color: #333;
+  text-align: left;
+}
+
+.project-actions {
+  margin-top: 20px;
+  display: flex;
+  gap: 12px;
+}
+
+.btn {
+  padding: 8px 16px;
+  border-radius: 6px;
+  background: #f7f7f7;
+  text-decoration: none;
+  font-size: 13px;
+  color: #1a1a1a;
+  transition: all 0.2s ease;
+  display: inline-block;
+}
+
+.btn:hover {
+  background: #e8e8e8;
+}
+
+.btn.primary {
+  background: #fff4d6;
+  color: #ff9500;
+}
+
+.btn.primary:hover {
+  background: #ffe9b3;
+}
+
+/* Other Projects Section */
+.other-projects {
+  margin-top: 24px;
+}
+
+.project-list {
+  list-style: disc;
+  padding-left: 24px;
+  margin: 16px 0;
+  text-align: left;
+}
+
+.project-list li {
+  font-size: 15px;
+  line-height: 1.7;
+  margin-bottom: 8px;
+  color: #1a1a1a;
+}
+
+.github-link {
+  font-size: 15px;
+  margin-top: 16px;
+  text-align: left;
+  color: #333;
+}
+
+/* ============================================
+   ABOUT WINDOW (About.jsx)
+   ============================================ */
+
+/* Add About-specific styles here when needed */
+
+/* ============================================
+   FAQ WINDOW (FAQ.jsx)
+   ============================================ */
+
+/* Add FAQ-specific styles here when needed */
+
+/* ============================================
+   CONTACT WINDOW (Contact.jsx)
+   ============================================ */
+
+/* Add Contact-specific styles here when needed */
