@@ -15,6 +15,7 @@
     "@emotion/styled": "^11.14.1",
     "@hookform/resolvers": "^3.9.0",
     "@iconscout/unicons": "^4.2.0",
+    "@lottiefiles/dotlottie-react": "^0.17.13",
     "@mui/icons-material": "^7.3.7",
     "@mui/material": "^7.3.7",
     "autoprefixer": "^10.4.22",

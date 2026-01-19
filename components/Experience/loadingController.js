@@ -36,8 +36,8 @@ export function createLoadingController({ onEnter }) {
         opacity: 0,
         duration: 0.5, // Smooth fade
         onComplete: () => {
-             loadingScreen.style.display = 'none'; // Ensure it doesn't block clicks
-             loadingScreen.remove(); // Remove purely to match snippets 'remove()' calls if desired, but hiding is safer for React unmounts not to crash. User snippet used remove().
+             loadingScreen.style.display = 'none'; // Hide it
+             loadingScreen.style.pointerEvents = 'none'; // Ensure it doesn't block clicks
         },
       });
     }
@@ -47,13 +47,34 @@ export function createLoadingController({ onEnter }) {
         opacity: 0,
         duration: 0.5,
         onComplete: () => {
-            instructions.remove();
+            instructions.style.display = 'none'; // Hide it
         }
       });
     }
   }
 
   function bind() {
+    // Reset loading screen to visible state
+    if (loadingScreen) {
+      loadingScreen.style.display = 'flex';
+      loadingScreen.style.opacity = '1';
+      loadingScreen.style.pointerEvents = 'auto';
+    }
+    
+    if (instructions) {
+      instructions.style.display = 'flex';
+      instructions.style.opacity = '1';
+    }
+    
+    if (enterButton) {
+      enterButton.style.opacity = '0';
+      enterButton.style.pointerEvents = 'none';
+    }
+    
+    if (loadingText) {
+      loadingText.style.opacity = '1';
+    }
+    
     enterButton?.addEventListener("click", handleEnter);
   }
 

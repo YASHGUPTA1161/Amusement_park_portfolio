@@ -116,7 +116,7 @@ const CenteredWindow = () => {
       </div>
       {(() => {
         // Calculate positions dynamically based on order opened
-        let positionY = 36; // Start at 36% (vertical)
+        let positionY = 60; // Start at 36% (vertical)
         let positionX = 50; // Start at 50% (horizontal, centered)
         const increment = 5; // Increase by 5% for each window
 

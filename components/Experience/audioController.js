@@ -7,19 +7,26 @@ export function createAudioController({ backgroundMusic }) {
   let isMusicPlaying = false;
 
   function toggleAudio() {
+    console.log("Audio toggle button clicked");
+    console.log("backgroundMusic exists:", !!backgroundMusic);
+    
     if (backgroundMusic) {
       backgroundMusic.toggle();
-      isMusicPlaying = !isMusicPlaying;
+      isMusicPlaying = backgroundMusic.isPlaying();
+      
+      console.log("Music is now playing:", isMusicPlaying);
 
       if (isMusicPlaying) {
-        // Music playing
-        firstIconTwo.style.display = "block";
-        secondIconTwo.style.display = "none";
+        // Music playing - show audio waves icon
+        if (firstIconTwo) firstIconTwo.style.display = "block";
+        if (secondIconTwo) secondIconTwo.style.display = "none";
       } else {
-        // Music paused
-        firstIconTwo.style.display = "none";
-        secondIconTwo.style.display = "block";
+        // Music paused - show flat bars icon
+        if (firstIconTwo) firstIconTwo.style.display = "none";
+        if (secondIconTwo) secondIconTwo.style.display = "block";
       }
+    } else {
+      console.error("Background music not initialized!");
     }
   }
 

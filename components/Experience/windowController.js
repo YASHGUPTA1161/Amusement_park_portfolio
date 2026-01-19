@@ -11,29 +11,9 @@ export function createWindowController() {
       event.stopPropagation();
     }
 
-    isWindowOpen = !isWindowOpen;
-
-    if (centeredWindow) {
-      if (isWindowOpen) {
-        // Show window
-        centeredWindow.style.visibility = "visible";
-        centeredWindow.style.pointerEvents = "auto";
-        centeredWindow.style.opacity = "0";
-        
-        // Fade in
-        requestAnimationFrame(() => {
-          centeredWindow.style.transition = "opacity 0.3s ease-in-out";
-          centeredWindow.style.opacity = "1";
-        });
-      } else {
-        // Fade out then hide
-        centeredWindow.style.opacity = "0";
-        setTimeout(() => {
-          centeredWindow.style.visibility = "hidden";
-          centeredWindow.style.pointerEvents = "none";
-        }, 300);
-      }
-    }
+    // Dispatch custom event to switch back to Home window
+    const toggleEvent = new CustomEvent('toggleWindow');
+    window.dispatchEvent(toggleEvent);
   }
 
   function handleBackdropClick(event) {
@@ -44,20 +24,11 @@ export function createWindowController() {
   }
 
   function bind() {
-    // Initially hide the window
-    if (centeredWindow) {
-      centeredWindow.style.visibility = "hidden";
-      centeredWindow.style.pointerEvents = "none";
-      centeredWindow.style.opacity = "0";
-      centeredWindow.addEventListener("click", handleBackdropClick);
-    }
-    
     windowButton?.addEventListener("click", toggleWindow);
   }
 
   function cleanup() {
     windowButton?.removeEventListener("click", toggleWindow);
-    centeredWindow?.removeEventListener("click", handleBackdropClick);
   }
 
   return {
