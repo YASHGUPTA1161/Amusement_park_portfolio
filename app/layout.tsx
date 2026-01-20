@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Borcelle Theme Park",
+  title: "Yash desktop",
   description: "Yash's Portfolio",
 };
 
