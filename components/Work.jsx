@@ -35,56 +35,94 @@ const Work = ({ onClose, positionY = 34, positionX = 50 }) => {
             .
           </p>
         </div>
+        
+        {/* Work Experience Section */}
+        <div className="work-experience-section">
+          <h3 className="section-title-main">WORK EXPERIENCE</h3>
+          
+          <div className="experience-card">
+            <div className="experience-header">
+              <h4 className="company-name">Grey Hatch Technologies Pvt. Ltd.</h4>
+              <span className="role-name">Generative AI Intern</span>
+            </div>
+            <p className="experience-description">
+              Worked on production-oriented AI features, fine-tuning Hugging Face models for sentiment analysis and image generation, deployed via Gradio on AWS SageMaker. Built an AI Accountant Manager using CrewAI agents to automate financial reporting. Developed a LangChain-based RAG chatbot and automation workflows (n8n, Selenium) for data scraping and lead generation.
+            </p>
+          </div>
+
+          <div className="experience-card">
+            <div className="experience-header">
+              <h4 className="company-name">Bharat Intern</h4>
+              <span className="role-name">Web Developer Intern</span>
+            </div>
+            <p className="experience-description">
+              Built complete, deployable frontend projects using HTML, CSS, and JavaScript. Created a responsive Netflix-style homepage focusing on layout and UI behavior. Developed a weather forecast website with real-time API data and a temperature converter to improve interactivity.
+            </p>
+          </div>
+
+          <div className="experience-card">
+            <div className="experience-header">
+              <h4 className="company-name">DetachedMeta LLP</h4>
+              <span className="role-name">Unreal Engine Developer Intern</span>
+            </div>
+            <p className="experience-description">
+              Built a detailed 3D room environment using Unreal Engine, working with meshes, materials, and node-based material graphs to control surface textures like metallic and rock finishes. Focused on lighting, reflections, and spatial composition to achieve a realistic and visually polished scene.
+            </p>
+          </div>
+        </div>
+
+
         <div className="work-grid-expanded">
           <div>
-            <h3 className="section-title">Tools</h3>
-            <div className="tag-group">
-              <span className="tag">Figma</span>
-              <span className="tag">Photoshop</span>
-              <span className="tag">Blender</span>
-              <span className="tag">Illustrator</span>
-              <span className="tag">After Effects</span>
-            </div>
-          </div>
-          <div>
-            <h3 className="section-title">Development</h3>
-            <div className="tag-group">
-              <span className="tag">JavaScript</span>
-              <span className="tag">TypeScript</span>
-              <span className="tag">React</span>
-              <span className="tag">Next.js</span>
-              <span className="tag">HTML</span>
-              <span className="tag">CSS</span>
-            </div>
-          </div>
-          <div>
-            <h3 className="section-title">Programming Languages</h3>
+            <h3 className="section-title">Languages</h3>
             <div className="tag-group">
               <span className="tag">Python</span>
               <span className="tag">JavaScript</span>
-              <span className="tag">C/C++</span>
-              <span className="tag">Java</span>
+              <span className="tag">TypeScript</span>
             </div>
           </div>
+          
           <div>
-            <h3 className="section-title">Frontend Technologies</h3>
-            <div className="tag-group">
-              <span className="tag">React.js</span>
-              <span className="tag">Next.js</span>
-              <span className="tag">Bootstrap</span>
-              <span className="tag">jQuery</span>
-              <span className="tag">EJS</span>
-            </div>
-          </div>
-          <div>
-            <h3 className="section-title">Backend & Frameworks</h3>
+            <h3 className="section-title">Backend</h3>
             <div className="tag-group">
               <span className="tag">Node.js</span>
-              <span className="tag">Express.js</span>
-              <span className="tag">Flask</span>
               <span className="tag">FastAPI</span>
+              <span className="tag">REST APIs</span>
+              <span className="tag">Prisma</span>
+            </div>
+          </div>
+          
+          <div>
+            <h3 className="section-title">Frontend</h3>
+            <div className="tag-group">
+              <span className="tag">React</span>
+              <span className="tag">Next.js</span>
+            </div>
+          </div>
+          
+          <div>
+            <h3 className="section-title">Databases</h3>
+            <div className="tag-group">
               <span className="tag">PostgreSQL</span>
-              <span className="tag">Three.js</span>
+              <span className="tag">Redis</span>
+              <span className="tag">MongoDB</span>
+            </div>
+          </div>
+          
+          <div>
+            <h3 className="section-title">Automation</h3>
+            <div className="tag-group">
+              <span className="tag">Selenium</span>
+              <span className="tag">n8n</span>
+            </div>
+          </div>
+          
+          <div>
+            <h3 className="section-title">Deployment</h3>
+            <div className="tag-group">
+              <span className="tag">Vercel</span>
+              <span className="tag">AWS (EC2, S3)</span>
+              <span className="tag">Docker (basic)</span>
             </div>
           </div>
         </div>
