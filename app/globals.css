@@ -580,4 +580,80 @@
    CONTACT WINDOW (Contact.jsx)
    ============================================ */
 
-/* Add Contact-specific styles here when needed */
+.contact-window {
+  max-width: 500px;
+}
+
+.contact-body {
+  padding: 30px;
+  text-align: center;
+}
+
+.contact-title {
+  font-size: 28px;
+  font-weight: 700;
+  margin: 0 0 12px 0;
+  color: #1a1a1a;
+}
+
+.contact-text {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.contact-animation {
+  width: 200px;
+  height: 200px;
+  margin: 0 auto 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.contact-animation:hover {
+  transform: scale(1.05);
+}
+
+.contact-animation:active {
+  transform: scale(0.95);
+}
+
+.contact-email {
+  font-size: 14px;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.contact-instructions {
+  font-size: 13px;
+  color: #555;
+  margin-bottom: 16px;
+}
+
+.contact-button {
+  background: #ff8a00;
+  color: white;
+  border: none;
+  padding: 12px 32px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 0 #d67300;
+}
+
+.contact-button:hover {
+  background: #ff9d1a;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 0 #d67300;
+}
+
+.contact-button:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 #d67300;
+}

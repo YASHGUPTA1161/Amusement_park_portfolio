@@ -15,27 +15,39 @@ const CenteredWindow = () => {
   const [showAbout, setShowAbout] = useState(false);
   const [showFAQ, setShowFAQ] = useState(false);
   const [showContact, setShowContact] = useState(false);
+  
+  // Track window order for z-index
+  const [windowOrder, setWindowOrder] = useState<string[]>([]);
+
+  const bringToFront = (windowName: string) => {
+    setWindowOrder(prev => {
+      const filtered = prev.filter(w => w !== windowName);
+      return [...filtered, windowName];
+    });
+  };
+
+  const openWindow = (windowName: string, setter: (val: boolean) => void) => {
+    setter(true);
+    bringToFront(windowName);
+  };
+
+  const closeWindow = (windowName: string, setter: (val: boolean) => void) => {
+    setter(false);
+    setWindowOrder(prev => prev.filter(w => w !== windowName));
+  };
+
   return (
     <>
       <div
         className="center-wrap"
         onClick={() => {
-          // Close Links window when clicking the background
-          if (showLinks) {
-            setShowLinks(false);
-          }
-          if (showWork) {
-            setShowWork(false);
-          }
-          if (showAbout) {
-            setShowAbout(false);
-          }
-          if (showFAQ) {
-            setShowFAQ(false);
-          }
-          if (showContact) {
-            setShowContact(false);
-          }
+          // Close all windows when clicking the background
+          if (showLinks) setShowLinks(false);
+          if (showWork) setShowWork(false);
+          if (showAbout) setShowAbout(false);
+          if (showFAQ) setShowFAQ(false);
+          if (showContact) setShowContact(false);
+          setWindowOrder([]);
         }}
       >
         <div
@@ -55,7 +67,7 @@ const CenteredWindow = () => {
             </h1>
             <p className="hero-sub">Developer, Designer, Creator</p>
             <div className="icon-row">
-              <button onClick={() => setShowLinks(true)} className="icon-btn">
+              <button onClick={() => openWindow('links', setShowLinks)} className="icon-btn">
                 <div className="icon-box">
                   <Image
                     src="/icons/buttons/links.svg"
@@ -66,7 +78,7 @@ const CenteredWindow = () => {
                 </div>
                 <span className="icon-lable">Links</span>
               </button>
-              <button onClick={() => setShowWork(true)} className="icon-btn">
+              <button onClick={() => openWindow('work', setShowWork)} className="icon-btn">
                 <div className="icon-box">
                   <Image
                     src="/icons/buttons/work.svg"
@@ -77,7 +89,7 @@ const CenteredWindow = () => {
                 </div>
                 <span className="icon-lable">Work</span>
               </button>
-              <button onClick={() => setShowAbout(true)} className="icon-btn">
+              <button onClick={() => openWindow('about', setShowAbout)} className="icon-btn">
                 <div className="icon-box">
                   <Image
                     src="/icons/buttons/about.svg"
@@ -88,7 +100,7 @@ const CenteredWindow = () => {
                 </div>
                 <span className="icon-lable">about</span>
               </button>
-              <button onClick={() => setShowFAQ(true)} className="icon-btn">
+              <button onClick={() => openWindow('faq', setShowFAQ)} className="icon-btn">
                 <div className="icon-box">
                   <Image
                     src="/icons/buttons/faq.svg"
@@ -99,7 +111,7 @@ const CenteredWindow = () => {
                 </div>
                 <span className="icon-lable">FAQ</span>
               </button>
-              <button onClick={() => setShowContact(true)} className="icon-btn">
+              <button onClick={() => openWindow('contact', setShowContact)} className="icon-btn">
                 <div className="icon-box">
                   <Image
                     src="/icons/buttons/contact.svg"
@@ -115,69 +127,67 @@ const CenteredWindow = () => {
         </div>
       </div>
       {(() => {
-        // Calculate positions dynamically based on order opened
-        let positionY = 60; // Start at 36% (vertical)
-        let positionX = 50; // Start at 50% (horizontal, centered)
-        const increment = 5; // Increase by 5% for each window
-
         const windows = [];
+        const baseZIndex = 900;
 
         if (showLinks) {
+          const zIndex = baseZIndex + windowOrder.indexOf('links');
           windows.push(
-            <Links
-              key="links"
-              positionY={positionY}
-              positionX={positionX}
-              onClose={() => setShowLinks(false)}
-            />
+            <div key="links" style={{ zIndex }} onClick={() => bringToFront('links')}>
+              <Links 
+                positionY={36}
+                positionX={50}
+                onClose={() => closeWindow('links', setShowLinks)} 
+              />
+            </div>
           );
-          positionY += increment;
-          positionX += increment;
         }
         if (showWork) {
+          const zIndex = baseZIndex + windowOrder.indexOf('work');
           windows.push(
-            <Work
-              key="work"
-              positionY={positionY}
-              positionX={positionX}
-              onClose={() => setShowWork(false)}
-            />
+            <div key="work" style={{ zIndex }} onClick={() => bringToFront('work')}>
+              <Work 
+                positionY={34}
+                positionX={50}
+                onClose={() => closeWindow('work', setShowWork)} 
+              />
+            </div>
           );
-          positionY += increment;
-          positionX += increment;
         }
         if (showAbout) {
+          const zIndex = baseZIndex + windowOrder.indexOf('about');
           windows.push(
-            <About
-              key="about"
-              positionY={positionY}
-              positionX={positionX}
-              onClose={() => setShowAbout(false)}
-            />
+            <div key="about" style={{ zIndex }} onClick={() => bringToFront('about')}>
+              <About 
+                positionY={36}
+                positionX={50}
+                onClose={() => closeWindow('about', setShowAbout)} 
+              />
+            </div>
           );
-          positionY += increment;
-          positionX += increment;
         }
         if (showFAQ) {
+          const zIndex = baseZIndex + windowOrder.indexOf('faq');
           windows.push(
-            <FAQ
-              key="faq"
-              positionY={positionY}
-              positionX={positionX}
-              onClose={() => setShowFAQ(false)}
-            />
+            <div key="faq" style={{ zIndex }} onClick={() => bringToFront('faq')}>
+              <FAQ 
+                positionY={38}
+                positionX={50}
+                onClose={() => closeWindow('faq', setShowFAQ)} 
+              />
+            </div>
           );
-          positionY += increment;
-          positionX += increment;
         }
         if (showContact) {
+          const zIndex = baseZIndex + windowOrder.indexOf('contact');
           windows.push(
-            <Contact
-              key="contact"
-              positionY={positionY}
-              positionX={positionX}
-              onClose={() => setShowContact(false)}
-            />
+            <div key="contact" style={{ zIndex }} onClick={() => bringToFront('contact')}>
+              <Contact 
+                positionY={40}
+                positionX={50}
+                onClose={() => closeWindow('contact', setShowContact)} 
+              />
+            </div>
           );
         }
 
