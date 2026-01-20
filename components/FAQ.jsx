@@ -30,7 +30,7 @@ const FAQ = ({ onClose, positionY = 38, positionX = 50 }) => {
       <div id="faq-windowheader" className="titlebar">
         <span>frequently asked questions</span>
         <button className="close-btn" onClick={onClose}>
-          [x]
+          x
         </button>
       </div>
       <div className="window-body faq-container">
