@@ -9,6 +9,11 @@ import PinterestIcon from "@mui/icons-material/Pinterest";
 
 const Links = ({ onClose, positionY = 32, positionX = 50 }) => {
   const dragRef = useDragableWindow();
+
+  const handleLinkClick = (url) => {
+    window.location.href = url;
+  };
+
   return (
     <div
       ref={dragRef}
@@ -33,32 +38,56 @@ const Links = ({ onClose, positionY = 32, positionX = 50 }) => {
         {/* links content */}
         <div>
           <div className="links-grid">
-            <div className="link-item">
+            <div 
+              className="link-item" 
+              onClick={() => handleLinkClick("https://github.com/YASHGUPTA1161")}
+              style={{ cursor: "pointer" }}
+            >
               <GitHubIcon sx={{ fontSize: 40 }} />
               <span className="link-label">github</span>
             </div>
-            <div className="link-item">
+            <div 
+              className="link-item" 
+              onClick={() => handleLinkClick("https://www.linkedin.com/in/yash-gupta-499728239/")}
+              style={{ cursor: "pointer" }}
+            >
               <LinkedInIcon sx={{ fontSize: 40 }} />
               <span className="link-label">linkedin</span>
             </div>
-            <div className="link-item">
+            <div 
+              className="link-item" 
+              onClick={() => handleLinkClick("/404")}
+              style={{ cursor: "pointer" }}
+            >
               <TwitterIcon sx={{ fontSize: 40 }} />
               <span className="link-label">twitter</span>
             </div>
-            <div className="link-item">
+            <div 
+              className="link-item" 
+              onClick={() => handleLinkClick("/404")}
+              style={{ cursor: "pointer" }}
+            >
               <RedditIcon sx={{ fontSize: 40 }} />
               <span className="link-label">reddit</span>
             </div>
-            <div className="link-item">
+            <div 
+              className="link-item" 
+              onClick={() => handleLinkClick("/404")}
+              style={{ cursor: "pointer" }}
+            >
               <InstagramIcon sx={{ fontSize: 40 }} />
               <span className="link-label">instagram</span>
             </div>
-            <div className="link-item">
+            <div 
+              className="link-item" 
+              onClick={() => handleLinkClick("/404")}
+              style={{ cursor: "pointer" }}
+            >
               <PinterestIcon sx={{ fontSize: 40 }} />
               <span className="link-label">pinterest</span>
             </div>
             <div className="link-note">
-              clicking any of the links will open a new tab!
+              clicking any of the links will redirect you!
             </div>
           </div>
         </div>
