@@ -38,8 +38,8 @@
 
 .window {
   width: 100%;
-  min-width: 500px;
-  max-width: 700px;
+  min-width: 600px;
+  max-width: 800px;
   border-radius: 10px;
   overflow: hidden;
   background-color: #fff;
@@ -50,7 +50,7 @@
 }
 
 .window-body {
-  padding: 32px;
+  padding: 40px;
   text-align: center;
 }
 
@@ -91,7 +91,7 @@
 
 /* Home Window Specific Styles */
 .hero-title {
-  font-size: 48px;
+  font-size: 52px;
   font-weight: 350;
   margin: 0;
 }
@@ -106,9 +106,9 @@
 }
 
 .hero-sub {
-  font-size: 20px;
+  font-size: 21px;
   color: #444;
-  margin: 16px 0 32px;
+  margin: 18px 0 36px;
 }
 
 .icon-row {
@@ -127,12 +127,12 @@
 }
 
 .icon-box {
-  width: 72px;
-  height: 72px;
+  width: 80px;
+  height: 80px;
   border-radius: 12px;
   display: grid;
   place-items: center;
-  font-size: 28px;
+  font-size: 32px;
   background: #fff;
 }
 
@@ -141,8 +141,8 @@
 }
 
 .icon-lable {
-  margin-top: 8px;
-  font-size: 12px;
+  margin-top: 10px;
+  font-size: 13px;
   color: #555;
   font-family: "Courier New", Courier, monospace;
 }
@@ -951,3 +951,334 @@
   transform: translateY(2px);
   box-shadow: 0 2px 0 #d67300;
 }
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .window {
+    min-width: 0 !important;           /* Remove minimum width */
+    max-width: 92vw !important;        /* 92% of viewport width */
+    width: 92vw !important;
+    max-height: 90vh !important;       /* Taller window */
+    box-sizing: border-box !important; /* Include padding in width */
+  }
+  
+  .window-body {
+    padding: 24px 16px !important;     /* More vertical padding */
+    box-sizing: border-box !important;
+  }
+  
+  .hero-title {
+    font-size: 28px !important;        /* Slightly bigger title */
+    margin: 0 !important;
+  }
+  
+  .hero-sub {
+    font-size: 14px !important;        /* Readable subtitle */
+    margin: 12px 0 20px !important;
+  }
+  
+  .icon-row {
+    display: grid !important;          /* Grid layout */
+    grid-template-columns: repeat(2, 1fr) !important; /* 2 columns */
+    gap: 24px 16px !important;         /* Vertical and horizontal gap */
+    margin-top: 28px !important;
+    justify-items: center !important;  /* Center icons */
+  }
+  
+  .icon-btn:last-child {
+    grid-column: 1 / -1 !important;    /* Contact spans full width */
+  }
+  
+  .icon-box {
+    width: 60px !important;            /* Bigger icons */
+    height: 60px !important;
+  }
+  
+  .icon-lable {
+    font-size: 11px !important;        /* Readable labels */
+    margin-top: 10px !important;
+  }
+  
+  /* Full-Screen Modal Windows (not Home) */
+  #links-window,
+  #work-window,
+  #about-window,
+  #faq-window,
+  #contact-window {
+    position: fixed !important;
+    top: 100px !important;             /* Leave space for game icon */
+    left: 0 !important;                /* Full left edge */
+    right: 0 !important;               /* Full right edge */
+    bottom: 0 !important;              /* Full bottom edge */
+    transform: none !important;        /* Remove transform */
+    width: 100% !important;            /* Full width */
+    max-width: 100% !important;
+    height: calc(100vh - 100px) !important;
+    max-height: calc(100vh - 100px) !important;
+    margin: 0 !important;
+    border-radius: 16px 16px 0 0 !important; /* Rounded top corners only */
+    animation: slideUp 0.3s ease-out !important;
+  }
+  
+  /* Slide-up animation */
+  @keyframes slideUp {
+    from {
+      transform: translateY(100%);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }
+  
+  /* Window body for modal windows - make scrollable */
+  #links-window .window-body,
+  #work-window .window-body,
+  #about-window .window-body,
+  #faq-window .window-body,
+  #contact-window .window-body {
+    max-height: calc(100vh - 160px) !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;  /* Prevent horizontal scroll */
+  }
+  
+  /* About Window Mobile Styles */
+  .about-fixed-header {
+    padding: 16px !important;          /* Reduce padding significantly */
+  }
+  
+  .about-header-content {
+    flex-direction: column !important; /* Stack vertically */
+    align-items: center !important;    /* Center items */
+    gap: 12px !important;              /* Smaller gap */
+    text-align: center !important;     /* Center text */
+  }
+  
+  .about-avatar {
+    margin: 0 auto !important;         /* Center avatar */
+  }
+  
+  .avatar-animation {
+    width: 80px !important;            /* Smaller avatar */
+    height: 80px !important;
+  }
+  
+  .about-intro {
+    padding-top: 0 !important;         /* Remove top padding */
+    text-align: center !important;     /* Center text */
+  }
+  
+  .about-name {
+    font-size: 28px !important;        /* Smaller name */
+    text-align: center !important;
+    margin: 0 0 6px 0 !important;      /* Reduce margin */
+  }
+  
+  .about-subtitle {
+    font-size: 13px !important;        /* Smaller subtitle */
+    text-align: center !important;
+    margin: 0 0 4px 0 !important;      /* Reduce margin */
+  }
+  
+  .about-tagline {
+    font-size: 12px !important;        /* Smaller tagline */
+    text-align: center !important;
+    margin: 0 !important;
+  }
+  
+  .about-scroll-content {
+    padding: 16px !important;          /* Reduce padding */
+    flex: 1 !important;                /* Take up available space */
+    max-height: none !important;       /* Remove height restriction */
+  }
+  
+  .about-body-wrapper {
+    height: 100% !important;           /* Full height */
+    max-height: calc(100vh - 150px) !important;  /* More space for content */
+  }
+  
+  .about-bio-text {
+    font-size: 14px !important;        /* Smaller bio text */
+  }
+  
+  .section-heading {
+    font-size: 14px !important;        /* Smaller headings */
+    margin-bottom: 16px !important;
+  }
+  
+  .about-section {
+    margin-bottom: 24px !important;    /* Reduce section spacing */
+  }
+  
+  /* Work Window Mobile Styles */
+  /* Project Cards - Stack vertically */
+  .project-card {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 20px !important;
+    margin-bottom: 40px !important;
+  }
+  
+  .project-media {
+    width: 100% !important;
+    height: auto !important;
+    max-width: 100% !important;
+  }
+  
+  .project-media img {
+    width: 100% !important;
+    height: auto !important;
+  }
+  
+  .project-content {
+    width: 100% !important;
+  }
+  
+  .project-title {
+    font-size: 22px !important;
+  }
+  
+  .project-desc {
+    font-size: 14px !important;
+  }
+  
+  /* Skills Grid - 2 columns instead of 3 */
+  .work-grid-expanded {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 24px !important;
+  }
+  
+  .section-title {
+    font-size: 16px !important;
+  }
+  
+  .tag {
+    font-size: 13px !important;
+    padding: 5px 12px !important;
+  }
+  
+  /* Links Window Mobile Styles */
+  .links-grid {
+    gap: 32px 24px !important;         /* Increase vertical gap */
+    padding: 20px 0 !important;        /* Add vertical padding */
+  }
+  
+  .link-item svg {
+    font-size: 50px !important;        /* Bigger icons */
+  }
+  
+  .link-label {
+    font-size: 14px !important;        /* Bigger labels */
+    margin-top: 12px !important;
+  }
+  
+  .link-note {
+    margin-top: 32px !important;       /* More space above note */
+    font-size: 13px !important;
+  }
+}
+
+/* Orientation Warning for Windows Mode */
+.window-orientation-warning {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.95);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  flex-direction: column;
+  color: white;
+}
+
+.window-orientation-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  padding: 40px;
+  text-align: center;
+}
+
+.window-orientation-content p {
+  font-size: 20px;
+  margin: 0;
+}
+
+.window-orientation-content svg {
+  animation: rotate-phone 2s ease-in-out infinite;
+}
+
+/* Show window orientation warning only on mobile in landscape mode */
+@media (max-width: 1100px) and (orientation: landscape) {
+  .window-orientation-warning {
+    display: flex;
+  }
+}
+
+/* Mobile Notice Banner */
+.mobile-notice-banner {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #f5f5dc;
+  border-top: 2px solid #333;
+  padding: 16px;
+  z-index: 9998;
+  display: none;
+  animation: slideUpBanner 0.3s ease-out;
+}
+
+@keyframes slideUpBanner {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.mobile-notice-content {
+  max-width: 600px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.mobile-notice-content p {
+  margin: 0;
+  font-size: 13px;
+  color: #333;
+  flex: 1;
+  line-height: 1.4;
+}
+
+.mobile-notice-dismiss {
+  background: #ff8c42;
+  color: white;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.2s;
+}
+
+.mobile-notice-dismiss:hover {
+  background: #ff7a2e;
+}
+
+/* Show notice banner only on mobile in portrait mode */
+@media (max-width: 1100px) and (orientation: portrait) {
+  .mobile-notice-banner:not(.game-notice) {
+    display: block !important;
+  }
+}
+
+
