@@ -1176,4 +1176,109 @@
   }
 }
 
+/* Orientation Warning for Windows Mode */
+.window-orientation-warning {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.95);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  flex-direction: column;
+  color: white;
+}
+
+.window-orientation-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  padding: 40px;
+  text-align: center;
+}
+
+.window-orientation-content p {
+  font-size: 20px;
+  margin: 0;
+}
+
+.window-orientation-content svg {
+  animation: rotate-phone 2s ease-in-out infinite;
+}
+
+/* Show window orientation warning only on mobile in landscape mode */
+@media (max-width: 1100px) and (orientation: landscape) {
+  .window-orientation-warning {
+    display: flex;
+  }
+}
+
+/* Mobile Notice Banner */
+.mobile-notice-banner {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #f5f5dc;
+  border-top: 2px solid #333;
+  padding: 16px;
+  z-index: 9998;
+  display: none;
+  animation: slideUpBanner 0.3s ease-out;
+}
+
+@keyframes slideUpBanner {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.mobile-notice-content {
+  max-width: 600px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.mobile-notice-content p {
+  margin: 0;
+  font-size: 13px;
+  color: #333;
+  flex: 1;
+  line-height: 1.4;
+}
+
+.mobile-notice-dismiss {
+  background: #ff8c42;
+  color: white;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.2s;
+}
+
+.mobile-notice-dismiss:hover {
+  background: #ff7a2e;
+}
+
+/* Show notice banner only on mobile */
+@media (max-width: 1100px) {
+  .mobile-notice-banner {
+    display: block;
+  }
+}
+
 

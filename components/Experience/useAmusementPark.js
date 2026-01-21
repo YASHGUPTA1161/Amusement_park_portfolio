@@ -21,6 +21,7 @@ import { createBackgroundMusic } from "./audio/backgroundMusic.js";
 import { createThemeController } from "./themeController.js";
 import { createAudioController } from "./audioController.js";
 import { createWindowController } from "./windowController.js";
+import { createTouchController } from "./touchController.js";
 
 export function useAmusementPark() {
   // ===== Persistent refs (shared with render loop) =====
@@ -199,8 +200,27 @@ export function useAmusementPark() {
 
     inputController.bind();
 
+    // Touch Controller for mobile (swipe to move)
+    const touchController = createTouchController({
+      onMove: (direction) => {
+        console.log('Touch swipe detected:', direction); // Debug log
+        // Map swipe direction to keyboard event simulation
+        const keyMap = {
+          'up': { key: 'arrowup' },
+          'down': { key: 'arrowdown' },
+          'left': { key: 'arrowleft' },
+          'right': { key: 'arrowright' }
+        };
+        handleKeyDown(keyMap[direction]);
+      }
+    });
+
+    // Bind touch controls (will auto-detect touch support)
+    touchController.bind();
+
     return () => {
       inputController.cleanup();
+      touchController.cleanup();
       modalControllerRef.current?.cleanup();
       movementAudioRef.current?.cleanup();
       backgroundMusicRef.current?.cleanup();

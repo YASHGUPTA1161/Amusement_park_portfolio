@@ -177,6 +177,24 @@ export default function HTML() {
       <div className="mobile-control left-arrow" />
       <div className="mobile-control right-arrow" />
       <div className="mobile-control down-arrow" />
+
+      {/* Orientation Warning - Game Mode */}
+      <div className="orientation-warning game-orientation">
+        <div className="orientation-content">
+          <svg width="80" height="80" viewBox="0 0 24 24" fill="white">
+            <path d="M16.48 2.52c3.27 1.55 5.61 4.72 5.97 8.48h1.5C23.44 4.84 18.29 0 12 0l-.66.03 3.81 3.81 1.33-1.32zm-6.25-.77c-.59-.59-1.54-.59-2.12 0L1.75 8.11c-.59.59-.59 1.54 0 2.12l12.02 12.02c.59.59 1.54.59 2.12 0l6.36-6.36c.59-.59.59-1.54 0-2.12L10.23 1.75zm4.6 19.44L2.81 9.17l6.36-6.36 12.02 12.02-6.36 6.36zm-7.31.29C4.25 19.94 1.91 16.76 1.55 13H.05C.56 19.16 5.71 24 12 24l.66-.03-3.81-3.81-1.33 1.32z"/>
+          </svg>
+          <p>Please rotate your device to landscape mode</p>
+        </div>
+      </div>
+
+      {/* Mobile Notice Banner - Game Mode */}
+      <div className="mobile-notice-banner game-notice">
+        <div className="mobile-notice-content">
+          <p>Swipe on the screen to move your character. This game is best experienced on desktop with keyboard controls!</p>
+          <button className="mobile-notice-dismiss">okay</button>
+        </div>
+      </div>
     </>
   );
 }

@@ -317,7 +317,7 @@
 
 @media (max-width: 1100px) {
   .mobile-control {
-    display: flex;
+    display: none; /* Hide d-pad, use touch controls instead */
   }
 }
 
@@ -331,5 +331,116 @@
 @media (max-width: 396px) {
   .modal-title {
     font-size: 26px;
+  }
+}
+
+/* Orientation Warnings */
+.orientation-warning {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.95);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  flex-direction: column;
+}
+
+.orientation-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  padding: 40px;
+  text-align: center;
+}
+
+.orientation-content p {
+  color: white;
+  font-size: 20px;
+  margin: 0;
+}
+
+.orientation-content svg {
+  animation: rotate-phone 2s ease-in-out infinite;
+}
+
+@keyframes rotate-phone {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-15deg);
+  }
+  75% {
+    transform: rotate(15deg);
+  }
+}
+
+/* Show game orientation warning only on mobile in portrait mode */
+@media (max-width: 1100px) and (orientation: portrait) {
+  .game-orientation {
+    display: flex;
+  }
+}
+
+/* Mobile Notice Banner - Game Mode */
+.mobile-notice-banner.game-notice {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--default-bg);
+  border-top: 3px solid white;
+  padding: 16px;
+  z-index: 9998;
+  display: none;
+  animation: slideUpBanner 0.3s ease-out;
+  transition: background 0.4s ease-in;
+  transition-delay: 0.1s;
+}
+
+.game-notice .mobile-notice-content {
+  max-width: 600px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.game-notice .mobile-notice-content p {
+  margin: 0;
+  font-size: 13px;
+  color: white;
+  flex: 1;
+  line-height: 1.4;
+}
+
+.game-notice .mobile-notice-dismiss {
+  background: white;
+  color: var(--default-bg);
+  border: 2px solid white;
+  padding: 8px 20px;
+  border-radius: 0;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  font-family: "Pixelify Sans", sans-serif;
+}
+
+.game-notice .mobile-notice-dismiss:hover {
+  background: transparent;
+  color: white;
+}
+
+/* Show game notice banner only on mobile */
+@media (max-width: 1100px) {
+  .mobile-notice-banner.game-notice {
+    display: block;
   }
 }
