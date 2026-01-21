@@ -72,6 +72,7 @@ const Work = ({ onClose, positionY = 34, positionX = 50 }) => {
         </div>
 
 
+        <h2 className="section-title-main">SKILLS</h2>
         <div className="work-grid-expanded">
           <div>
             <h3 className="section-title">Languages</h3>
