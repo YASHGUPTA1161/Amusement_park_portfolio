@@ -951,3 +951,142 @@
   transform: translateY(2px);
   box-shadow: 0 2px 0 #d67300;
 }
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .window {
+    min-width: 0 !important;           /* Remove minimum width */
+    max-width: 92vw !important;        /* 92% of viewport width */
+    width: 92vw !important;
+    max-height: 90vh !important;       /* Taller window */
+    box-sizing: border-box !important; /* Include padding in width */
+  }
+  
+  .window-body {
+    padding: 24px 16px !important;     /* More vertical padding */
+    box-sizing: border-box !important;
+  }
+  
+  .hero-title {
+    font-size: 28px !important;        /* Slightly bigger title */
+    margin: 0 !important;
+  }
+  
+  .hero-sub {
+    font-size: 14px !important;        /* Readable subtitle */
+    margin: 12px 0 20px !important;
+  }
+  
+  .icon-row {
+    display: grid !important;          /* Grid layout */
+    grid-template-columns: repeat(2, 1fr) !important; /* 2 columns */
+    gap: 24px 16px !important;         /* Vertical and horizontal gap */
+    margin-top: 28px !important;
+    justify-items: center !important;  /* Center icons */
+  }
+  
+  .icon-btn:last-child {
+    grid-column: 1 / -1 !important;    /* Contact spans full width */
+  }
+  
+  .icon-box {
+    width: 60px !important;            /* Bigger icons */
+    height: 60px !important;
+  }
+  
+  .icon-lable {
+    font-size: 11px !important;        /* Readable labels */
+    margin-top: 10px !important;
+  }
+  
+  /* Full-Screen Modal Windows (not Home) */
+  #links-window,
+  #work-window,
+  #about-window,
+  #faq-window,
+  #contact-window {
+    position: fixed !important;
+    top: 100px !important;             /* Leave space for game icon */
+    left: 0 !important;                /* Full left edge */
+    right: 0 !important;               /* Full right edge */
+    bottom: 0 !important;              /* Full bottom edge */
+    transform: none !important;        /* Remove transform */
+    width: 100% !important;            /* Full width */
+    max-width: 100% !important;
+    height: calc(100vh - 100px) !important;
+    max-height: calc(100vh - 100px) !important;
+    margin: 0 !important;
+    border-radius: 16px 16px 0 0 !important; /* Rounded top corners only */
+    animation: slideUp 0.3s ease-out !important;
+  }
+  
+  /* Slide-up animation */
+  @keyframes slideUp {
+    from {
+      transform: translateY(100%);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }
+  
+  /* Window body for modal windows - make scrollable */
+  #links-window .window-body,
+  #work-window .window-body,
+  #about-window .window-body,
+  #faq-window .window-body,
+  #contact-window .window-body {
+    max-height: calc(100vh - 160px) !important;
+    overflow-y: auto !important;
+  }
+  
+  /* About Window Mobile Styles */
+  .about-fixed-header {
+    padding: 20px !important;          /* Less padding */
+  }
+  
+  .about-header-content {
+    flex-direction: column !important; /* Stack vertically */
+    align-items: center !important;    /* Center items */
+    gap: 16px !important;              /* Smaller gap */
+    text-align: center !important;     /* Center text */
+  }
+  
+  .about-avatar {
+    margin: 0 auto !important;         /* Center avatar */
+  }
+  
+  .avatar-animation {
+    width: 100px !important;           /* Smaller avatar */
+    height: 100px !important;
+  }
+  
+  .about-intro {
+    padding-top: 0 !important;         /* Remove top padding */
+    text-align: center !important;     /* Center text */
+  }
+  
+  .about-name {
+    font-size: 32px !important;        /* Smaller name */
+    text-align: center !important;
+  }
+  
+  .about-subtitle {
+    font-size: 14px !important;        /* Smaller subtitle */
+    text-align: center !important;
+  }
+  
+  .about-tagline {
+    font-size: 13px !important;        /* Smaller tagline */
+    text-align: center !important;
+  }
+  
+  .about-scroll-content {
+    padding: 20px !important;          /* Less padding */
+  }
+  
+  .about-bio-text {
+    font-size: 14px !important;        /* Smaller bio text */
+  }
+}
+
+

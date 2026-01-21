@@ -49,7 +49,7 @@ export default function Home() {
           left: '20px',
           width: '80px',
           height: '80px',
-          zIndex: 1000,
+          zIndex: 850,  // Below windows (900+) but above background
           cursor: 'pointer',
           transition: 'transform 0.2s',
         }}
