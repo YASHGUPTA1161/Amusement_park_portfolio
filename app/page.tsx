@@ -8,6 +8,7 @@ import WaveAnimation from "@/components/WaveAnimation";
 
 export default function Home() {
   const [showGame, setShowGame] = useState(false);
+  const [showBanner, setShowBanner] = useState(true);
 
   // Listen for window toggle events from the game
   useEffect(() => {
@@ -22,29 +23,10 @@ export default function Home() {
     };
   }, []);
 
-  // Handle mobile notice dismiss
-  useEffect(() => {
-    const handleDismiss = () => {
-      const button = document.querySelector('.mobile-notice-dismiss');
-      const banner = document.querySelector('.mobile-notice-banner');
-      
-      if (button && banner) {
-        button.addEventListener('click', () => {
-          (banner as HTMLElement).style.display = 'none';
-          sessionStorage.setItem('mobileNoticeDismissed', 'true');
-        });
-      }
-
-      // Check if already dismissed
-      if (sessionStorage.getItem('mobileNoticeDismissed') === 'true') {
-        if (banner) {
-          (banner as HTMLElement).style.display = 'none';
-        }
-      }
-    };
-
-    handleDismiss();
-  }, []);
+  const handleDismissBanner = () => {
+    setShowBanner(false);
+    sessionStorage.setItem('mobileNoticeDismissed', 'true');
+  };
 
   if (showGame) {
     return <AmusementPark />;
@@ -104,12 +86,14 @@ export default function Home() {
       </div>
 
       {/* Mobile Notice Banner */}
-      <div className="mobile-notice-banner">
-        <div className="mobile-notice-content">
-          <p>Hey there! Just letting you know that this site is best experienced on desktop. Some features might be wonky on different devices.</p>
-          <button className="mobile-notice-dismiss">okay</button>
+      {showBanner && (
+        <div className="mobile-notice-banner">
+          <div className="mobile-notice-content">
+            <p>Hey there! Just letting you know that this site is best experienced on desktop. Some features might be wonky on different devices.</p>
+            <button className="mobile-notice-dismiss" onClick={handleDismissBanner}>okay</button>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

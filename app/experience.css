@@ -438,9 +438,9 @@
   color: white;
 }
 
-/* Show game notice banner only on mobile */
-@media (max-width: 1100px) {
+/* Show game notice banner only on mobile in landscape */
+@media (max-width: 1100px) and (orientation: landscape) {
   .mobile-notice-banner.game-notice {
-    display: block;
+    display: block !important;
   }
 }

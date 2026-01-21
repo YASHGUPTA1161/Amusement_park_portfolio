@@ -187,14 +187,6 @@ export default function HTML() {
           <p>Please rotate your device to landscape mode</p>
         </div>
       </div>
-
-      {/* Mobile Notice Banner - Game Mode */}
-      <div className="mobile-notice-banner game-notice">
-        <div className="mobile-notice-content">
-          <p>Swipe on the screen to move your character. This game is best experienced on desktop with keyboard controls!</p>
-          <button className="mobile-notice-dismiss">okay</button>
-        </div>
-      </div>
     </>
   );
 }

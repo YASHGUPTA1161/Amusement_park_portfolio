@@ -1274,10 +1274,10 @@
   background: #ff7a2e;
 }
 
-/* Show notice banner only on mobile */
-@media (max-width: 1100px) {
-  .mobile-notice-banner {
-    display: block;
+/* Show notice banner only on mobile in portrait mode */
+@media (max-width: 1100px) and (orientation: portrait) {
+  .mobile-notice-banner:not(.game-notice) {
+    display: block !important;
   }
 }
 
