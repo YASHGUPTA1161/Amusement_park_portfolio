@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { DotLottieReact } from "@lottiefiles/dotlottie-react";
+import LottiePlayer from "@/components/LottiePlayer";
 import Link from "next/link";
 
 export default function NotFound() {
@@ -30,7 +30,7 @@ export default function NotFound() {
           justifyContent: "center",
         }}
       >
-        <DotLottieReact
+        <LottiePlayer
           src="https://lottie.host/05ddd65c-6258-47b6-8346-45a48085abac/SXqU0hNPHx.lottie"
           loop
           autoplay

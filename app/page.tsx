@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { DotLottieReact } from '@lottiefiles/dotlottie-react';
+import LottiePlayer from "@/components/LottiePlayer";
 import CenteredWindow from "@/components/CenteredWindow";
 import AmusementPark from "@/components/Experience/AmusementPark";
 import WaveAnimation from "@/components/WaveAnimation";
@@ -63,7 +63,7 @@ export default function Home() {
         onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
         title="Open 3D Amusement Park"
       >
-        <DotLottieReact
+        <LottiePlayer
           src="https://lottie.host/787221f5-3e7d-47dd-9739-f9743a0ff8e2/uLmCuLMH7f.lottie"
           stateMachineId="StateMachine1"
           loop
