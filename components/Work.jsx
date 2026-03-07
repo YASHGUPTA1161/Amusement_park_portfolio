@@ -35,28 +35,41 @@ const Work = ({ onClose, positionY = 34, positionX = 50 }) => {
             .
           </p>
         </div>
-        
+
         {/* Work Experience Section */}
         <div className="work-experience-section">
           <h3 className="section-title-main">WORK EXPERIENCE</h3>
-          
+
           <div className="experience-card">
             <div className="experience-header">
-              <h4 className="company-name">Grey Hatch Technologies Pvt. Ltd.</h4>
+              <h4 className="company-name">
+                Grey Hatch Technologies Pvt. Ltd.
+              </h4>
               <span className="role-name">Generative AI Intern</span>
             </div>
             <p className="experience-description">
-              Worked on production-oriented AI features, fine-tuning Hugging Face models for sentiment analysis and image generation, deployed via Gradio on AWS SageMaker. Built an AI Accountant Manager using CrewAI agents to automate financial reporting. Developed a LangChain-based RAG chatbot and automation workflows (n8n, Selenium) for data scraping and lead generation.
+              Worked on production-oriented AI features, fine-tuning Hugging
+              Face models for sentiment analysis and image generation, deployed
+              via Gradio on AWS SageMaker. Built an AI Accountant Manager using
+              CrewAI agents to automate financial reporting. Developed a
+              LangChain-based RAG chatbot and automation workflows (n8n,
+              Selenium) for data scraping and lead generation.
             </p>
           </div>
 
           <div className="experience-card">
             <div className="experience-header">
-              <h4 className="company-name">Bharat Intern</h4>
-              <span className="role-name">Web Developer Intern</span>
+              <h4 className="company-name">FlyToWeb</h4>
+              <span className="role-name">
+                Backend Developer Intern · Jul 2024 – Dec 2024
+              </span>
             </div>
             <p className="experience-description">
-              Built complete, deployable frontend projects using HTML, CSS, and JavaScript. Created a responsive Netflix-style homepage focusing on layout and UI behavior. Developed a weather forecast website with real-time API data and a temperature converter to improve interactivity.
+              Built REST API endpoints for an internal CMS using Node.js,
+              Express, and Prisma with role-based access (admin/editor) and JWT
+              auth middleware. Wrote integration tests using Jest and Supertest,
+              covering auth, CRUD, and error edge cases — first structured
+              backend testing experience in a team codebase.
             </p>
           </div>
 
@@ -66,11 +79,14 @@ const Work = ({ onClose, positionY = 34, positionX = 50 }) => {
               <span className="role-name">Unreal Engine Developer Intern</span>
             </div>
             <p className="experience-description">
-              Built a detailed 3D room environment using Unreal Engine, working with meshes, materials, and node-based material graphs to control surface textures like metallic and rock finishes. Focused on lighting, reflections, and spatial composition to achieve a realistic and visually polished scene.
+              Built a detailed 3D room environment using Unreal Engine, working
+              with meshes, materials, and node-based material graphs to control
+              surface textures like metallic and rock finishes. Focused on
+              lighting, reflections, and spatial composition to achieve a
+              realistic and visually polished scene.
             </p>
           </div>
         </div>
-
 
         <h2 className="section-title-main">SKILLS</h2>
         <div className="work-grid-expanded">
@@ -82,7 +98,7 @@ const Work = ({ onClose, positionY = 34, positionX = 50 }) => {
               <span className="tag">TypeScript</span>
             </div>
           </div>
-          
+
           <div>
             <h3 className="section-title">Backend</h3>
             <div className="tag-group">
@@ -92,7 +108,7 @@ const Work = ({ onClose, positionY = 34, positionX = 50 }) => {
               <span className="tag">Prisma</span>
             </div>
           </div>
-          
+
           <div>
             <h3 className="section-title">Frontend</h3>
             <div className="tag-group">
@@ -100,7 +116,7 @@ const Work = ({ onClose, positionY = 34, positionX = 50 }) => {
               <span className="tag">Next.js</span>
             </div>
           </div>
-          
+
           <div>
             <h3 className="section-title">Databases</h3>
             <div className="tag-group">
@@ -109,7 +125,7 @@ const Work = ({ onClose, positionY = 34, positionX = 50 }) => {
               <span className="tag">MongoDB</span>
             </div>
           </div>
-          
+
           <div>
             <h3 className="section-title">Automation</h3>
             <div className="tag-group">
@@ -117,7 +133,7 @@ const Work = ({ onClose, positionY = 34, positionX = 50 }) => {
               <span className="tag">n8n</span>
             </div>
           </div>
-          
+
           <div>
             <h3 className="section-title">Deployment</h3>
             <div className="tag-group">
@@ -195,16 +211,24 @@ const Work = ({ onClose, positionY = 34, positionX = 50 }) => {
             <h3 className="project-title">VibeCode</h3>
 
             <p className="project-desc">
-              An AI-powered code generator that turns your ideas into working Next.js projects. Just describe what you want to build, and it creates the entire codebase for you.
+              An AI-powered code generator that turns your ideas into working
+              Next.js projects. Just describe what you want to build, and it
+              creates the entire codebase for you.
             </p>
 
             <p className="project-desc">
-              I built a smart system with a chat interface where you can talk to the AI, see live code previews, and watch your project come together in real time. It handles everything from file creation to terminal commands in a safe sandbox environment.
+              I built a smart system with a chat interface where you can talk to
+              the AI, see live code previews, and watch your project come
+              together in real time. It handles everything from file creation to
+              terminal commands in a safe sandbox environment.
             </p>
 
             <p className="project-links">
               Built with{" "}
-              <strong>Next.js, TypeScript, Prisma, tRPC, Inngest, E2B Sandboxes</strong>. Live and ongoing.
+              <strong>
+                Next.js, TypeScript, Prisma, tRPC, Inngest, E2B Sandboxes
+              </strong>
+              . Live and ongoing.
             </p>
 
             <div className="project-actions">
@@ -232,7 +256,10 @@ const Work = ({ onClose, positionY = 34, positionX = 50 }) => {
           <h2 className="section-title">Other dev projects:</h2>
           <ul className="project-list">
             <li>This website!</li>
-            <li>that's it for now, there are some more projects i'm working on in the background that i'll release soon :)</li>
+            <li>
+              that's it for now, there are some more projects i'm working on in
+              the background that i'll release soon :)
+            </li>
           </ul>
           <p className="github-link">
             See more on{" "}

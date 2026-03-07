@@ -18,6 +18,8 @@
     "@lottiefiles/dotlottie-react": "^0.17.13",
     "@mui/icons-material": "^7.3.7",
     "@mui/material": "^7.3.7",
+    "@prisma/adapter-pg": "^7.3.0",
+    "@prisma/client": "^7.3.0",
     "autoprefixer": "^10.4.22",
     "axios": "^1.13.2",
     "emailjs-com": "^3.2.0",
@@ -45,6 +47,7 @@
     "eslint-config-next": "^16.1.2",
     "eslint-config-prettier": "^9.1.0",
     "prettier": "^3.3.3",
+    "prisma": "^7.3.0",
     "tailwindcss": "^4.1.17",
     "typescript": "^5",
     "vite": "^7.3.0"
